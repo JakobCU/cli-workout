@@ -80,6 +80,21 @@ Config and state are auto-created in `~/.workout_cli/` on first run.
 | `python app.py config` | Show config file paths and editable fields |
 | `python app.py skip` | Skip to next workout in rotation |
 | `python app.py reset` | Reset all progress (asks confirmation) |
+| `python app.py --dev` | Hidden dev menu: preview all evolutions, animations, colors |
+
+## Blobby Evolution
+
+Blobby evolves as you level up, changing form and color:
+
+| Level | Stage | Color | Description |
+|-------|-------|-------|-------------|
+| 1-2 | Baby Blob | Yellow | Small, round, adorable |
+| 3-4 | Blob Warrior | Green | Growing horns, getting tougher |
+| 5-6 | Iron Blobby | Cyan | Armored, determined |
+| 7-8 | Beast Mode | Red | Spiky, powerful, intense |
+| 9-10 | Transcended | White | Celestial aura, glowing |
+
+Use `python app.py --dev` to preview all evolutions and animations.
 
 ## For AI Agents
 

@@ -887,6 +887,264 @@ _EMBER_FRAMES = [
 ]
 
 
+# ═══════════════════════════════════════════════════════════════════════
+# BLOBBY EVOLUTION -- 5 stages based on level
+# Each stage: list of 3 idle frames for animation, + color style
+# ═══════════════════════════════════════════════════════════════════════
+
+EVOLUTION_STAGES = [
+    {
+        # Stage 1: Baby Blob (Level 1-2)
+        "name": "Baby Blob",
+        "level_range": (1, 2),
+        "color": "bright_yellow",
+        "frames": [
+            r"""
+              \  /
+           .-''''-.
+          / o    o \
+         |  (~~~~)  |
+          \ `----' /
+           '------'
+              ||
+             /  \
+            /    \
+          _|_    _|_""",
+            r"""
+              \  /
+           .-''''-.
+          / o    o \
+         |  (~~~~)  |
+          \  .''.  /
+           '------'
+              ||
+             /  \
+            /    \
+          _|_    _|_""",
+            r"""
+              \  /
+           .-''''-.
+          / -    - \
+         |  (~~~~)  |
+          \ `----' /
+           '------'
+              ||
+             /||\
+            / || \
+          _|_    _|_""",
+        ],
+    },
+    {
+        # Stage 2: Blob Warrior (Level 3-4)
+        "name": "Blob Warrior",
+        "level_range": (3, 4),
+        "color": "bright_green",
+        "frames": [
+            r"""
+             \\    //
+           \.-''''-./
+          =/ @    @ \=
+         | |  (~~~~)  | |
+          \ \ `----' / /
+           \'------'/
+             | || |
+            /| /\ |\
+           / |/  \| \
+         _|__|    |__|_""",
+            r"""
+             \\    //
+           \.-''''-./
+          =/ @    @ \=
+         | |  (>~~<)  | |
+          \ \ `----' / /
+           \'------'/
+             | || |
+            /|_/\_|\
+           / |    | \
+         _|__|    |__|_""",
+            r"""
+             \\    //
+           \.-''''-./
+          =/ ^    ^ \=
+         | |  (~~~~)  | |
+          \ \ `----' / /
+           \'------'/
+             | || |
+            /| /\ |\
+           / |/  \| \
+         _|__|    |__|_""",
+        ],
+    },
+    {
+        # Stage 3: Iron Blobby (Level 5-6)
+        "name": "Iron Blobby",
+        "level_range": (5, 6),
+        "color": "bright_cyan",
+        "frames": [
+            r"""
+             \\\\  ////
+           \\.-''''-.//
+          =|| @    @ ||=
+         ||| (~~~~)  |||
+          =|| `----' ||=
+           |'------'|
+           /|  |  |  |\
+          /*| /|  |\ |*\
+         /**|/ |  | \|**\
+        {***||_|  |_||***}""",
+            r"""
+             \\\\  ////
+           \\.-''''-.//
+          =|| @    @ ||=
+         ||| (>~~<)  |||
+          =|| `----' ||=
+           |'------'|
+           /|  |  |  |\
+          /*|  |  |  |*\
+         /**|/_|  |_\|**\
+        {***||_|  |_||***}""",
+            r"""
+             \\\\  ////
+           \\.-''''-.//
+          =|| ^    ^ ||=
+         ||| (~~~~)  |||
+          =||  !!!! ||=
+           |'------'|
+           /|  |  |  |\
+          /*| /|  |\ |*\
+         /**|/ |  | \|**\
+        {***||_|  |_||***}""",
+        ],
+    },
+    {
+        # Stage 4: Beast Mode (Level 7-8)
+        "name": "Beast Mode",
+        "level_range": (7, 8),
+        "color": "bright_red",
+        "frames": [
+            r"""
+          *  \\\\  ////  *
+         * \\.-''''-.//  *
+        **=|| O    O ||=**
+        *||| (~~~~)  |||*
+        **=|| `----' ||=**
+         * |'------'| *
+         */||  |  |  ||\*
+        **/ | /|  |\ | \**
+       **/ /|/ |  | \|\ \**
+      {**/ /**||  ||**\ \**}""",
+            r"""
+           * \\\\  //// *
+         **\\.-''''-.// **
+        **=|| O    O ||=**
+        *||| (>~~<)  |||*
+        **=|| `----' ||=**
+         * |'------'| *
+         */||  |  |  ||\*
+        **/  | |  | |  \**
+       **/  /|| || ||\  \**
+      {**/ /**||  ||**\ \**}""",
+            r"""
+          *  \\\\  ////  *
+         * \\.-''''-.//  *
+        **=|| ^    ^ ||=**
+        *||| (~~~~)  |||*
+        **=||  !!!!  ||=**
+         * |'------'| *
+         */||  |  |  ||\*
+        **/ | /|  |\ | \**
+       **/ /|/ |  | \|\ \**
+      {**/ /**||  ||**\ \**}""",
+        ],
+    },
+    {
+        # Stage 5: Transcended (Level 9-10)
+        "name": "Transcended",
+        "level_range": (9, 10),
+        "color": "bold bright_white",
+        "frames": [
+            r"""
+       . * . * . * . * . *
+      *    \\\\  ////     *
+     .  *\\.-''''-.// *   .
+     * **=|| O    O ||=** *
+     . *||| (~~~~)  |||*  .
+     * **=|| `----' ||=** *
+      * * |'------'| * *
+      .  /||  |  |  ||\  .
+       * / | /|  |\ | \ *
+      .  / |/ |  | \|  \ .
+       . * . * . * . * . *""",
+            r"""
+        * . * . * . * . *
+      .    \\\\  ////     .
+     *  .\\.-''''-.// .   *
+     . *.=|| O    O ||=.* .
+     * .||| (>~~<)  |||.*  *
+     . *.=|| `----' ||=.* .
+      . . |'------'| . .
+      *  /||  |  |  ||\  *
+       . / | /|  |\ | \ .
+      *  / |/ |  | \|  \ *
+       * . * . * . * . * .""",
+            r"""
+      . . * . * . * . * . .
+       *    \\\\  ////    *
+      . .*\\.-''''-.//  *. .
+      * .*=|| ^    ^ ||=*. *
+      . *||| (~~~~)  |||*  .
+      * .*=||  !!!!  ||=*. *
+       * . |'------'| . *
+       .  /||  |  |  ||\  .
+        * / | /|  |\ | \ *
+       .  / |/ |  | \|  \ .
+      . . * . * . * . * . .""",
+        ],
+    },
+]
+
+
+def get_evolution_stage(state):
+    """Return the evolution stage dict for the current level."""
+    level = state.get("level", 1)
+    for stage in reversed(EVOLUTION_STAGES):
+        if level >= stage["level_range"][0]:
+            return stage
+    return EVOLUTION_STAGES[0]
+
+
+def get_evolution_stage_by_index(idx):
+    """Return evolution stage by index (0-4). For dev menu."""
+    return EVOLUTION_STAGES[min(idx, len(EVOLUTION_STAGES) - 1)]
+
+
+# ── Timer color gradient ────────────────────────────────────────────
+def timer_color(remaining, total):
+    """Return a Rich style for the timer based on remaining ratio."""
+    if remaining <= 3:
+        return "bold blink bright_red"
+    if remaining <= 5:
+        return "bold bright_red"
+    ratio = remaining / max(total, 1)
+    if ratio > 0.6:
+        return "bold bright_green"
+    if ratio > 0.3:
+        return "bold bright_yellow"
+    return "bold bright_red"
+
+
+def border_color(remaining, total):
+    """Return border style based on urgency."""
+    if remaining <= 3:
+        return "bold bright_red"
+    if remaining <= 5:
+        return "bright_red"
+    ratio = remaining / max(total, 1)
+    if ratio > 0.5:
+        return C_BORDER
+    return "bright_yellow"
+
+
 def render_big_time(seconds, tick_count=0):
     """Render MM:SS as large block digits with animated flame border."""
     m, s = divmod(int(seconds), 60)
@@ -981,12 +1239,14 @@ def make_progress_bar_text(current, total, width=44):
 
 
 def build_exercise_frame(title, frame_art, remaining, total, subtitle="",
-                         is_rest=False, tick_count=0):
+                         is_rest=False, tick_count=0, encouragement="",
+                         evolution_color=None):
     """Build a Rich renderable for one animation tick."""
     elapsed = total - remaining
     title_style = C_REST if is_rest else C_EXERCISE
-    timer_style = C_TIMER_LOW if remaining <= 5 else C_TIMER
-    monster_style = C_MONSTER_REST if is_rest else C_MONSTER
+    t_color = timer_color(remaining, total)
+    b_color = border_color(remaining, total)
+    monster_style = C_MONSTER_REST if is_rest else (evolution_color or C_MONSTER)
 
     # Big block timer
     big_timer = render_big_time(remaining, tick_count)
@@ -1000,43 +1260,55 @@ def build_exercise_frame(title, frame_art, remaining, total, subtitle="",
     output.append(frame_art, style=monster_style)
     output.append("\n\n")
 
-    # Big timer digits with flame
+    # Big timer digits with flame/ember lines
     for line in big_timer.splitlines():
-        # flame lines get fire color, digit lines get timer color
-        if ")" in line or "(" in line or "*" in line or "'" in line:
-            output.append(f"  {line}\n", style=C_FIRE if remaining <= 10 else C_PROGRESS)
+        is_deco = any(c in line for c in ")(.*'")
+        if is_deco:
+            deco_style = "bold bright_red" if remaining <= 10 else C_PROGRESS
+            output.append(f"  {line}\n", style=deco_style)
         else:
-            output.append(f"  {line}\n", style=timer_style)
+            output.append(f"  {line}\n", style=t_color)
 
     output.append("\n")
 
     # Progress bar
     bar_pct = elapsed / max(total, 1)
-    bar_style = C_FIRE if bar_pct > 0.8 else C_PROGRESS
+    if bar_pct > 0.8:
+        bar_style = C_FIRE
+    elif bar_pct > 0.5:
+        bar_style = "bright_yellow"
+    else:
+        bar_style = C_PROGRESS
     bar_text = make_progress_bar_text(elapsed, total)
     output.append(f"{bar_text}\n\n", style=bar_style)
+
+    # Status line
     output.append(
         f"  {fmt_time(remaining)} remaining  |  {fmt_time(total)} total  |  "
         f"{fmt_time(elapsed)} elapsed\n",
         style=C_SUBTITLE,
     )
 
+    # Encouragement during rest
+    if encouragement:
+        output.append(f"\n  \"{encouragement}\"\n", style="italic bright_yellow")
+
     return Panel(
         output,
         title=f"[{title_style}] {title} [{title_style}]",
-        border_style=C_FIRE if remaining <= 5 else C_BORDER,
+        border_style=b_color,
         padding=(0, 2),
     )
 
 
-def build_countdown_frame(n, tick_count=0):
-    """Build a Rich panel for countdown with big number."""
-    frames = ASCII_FRAMES["COUNTDOWN"]
-    frame_art = frames[tick_count % len(frames)]
+def build_countdown_frame(n, tick_count=0, evolution_stage=None):
+    """Build a Rich panel for countdown with big number and evolution art."""
+    stage = evolution_stage or EVOLUTION_STAGES[0]
+    evo_frames = stage["frames"]
+    evo_color = stage["color"]
+    frame_art = evo_frames[tick_count % len(evo_frames)]
 
-    big_n = render_big_time(n, tick_count)  # shows as 00:0N
-
-    # Actually render just the single digit big
+    # Render just the countdown digit big
     n_str = str(n)
     lines_digit = []
     for row in range(7):
@@ -1049,7 +1321,7 @@ def build_countdown_frame(n, tick_count=0):
     ember = _EMBER_FRAMES[tick_count % len(_EMBER_FRAMES)]
 
     output = Text()
-    output.append(frame_art, style=C_MONSTER)
+    output.append(frame_art, style=evo_color)
     output.append("\n\n")
     output.append(f"  {flame}\n", style=C_FIRE)
     output.append("\n")
@@ -1059,11 +1331,14 @@ def build_countdown_frame(n, tick_count=0):
     output.append(f"  {ember}\n", style=C_FIRE)
     output.append("\n")
     output.append("                  GET READY!\n", style="bold bright_yellow")
+    output.append(f"                  {get_random_encouragement()}\n",
+                  style="italic bright_cyan")
 
     return Panel(
         output,
         title=f"[{C_TITLE}] STARTING SOON [{C_TITLE}]",
-        border_style=C_BORDER,
+        subtitle=f"[{evo_color}] {stage['name']} [{evo_color}]",
+        border_style=evo_color,
         padding=(0, 2),
     )
 
@@ -1073,11 +1348,50 @@ TICK_DURATION = 0.25   # 4 fps
 FRAME_SWITCH_TICKS = 2  # switch monster pose every 0.5s
 
 
-def animate_block(title, seconds, frames, subtitle="", is_rest=False):
+def show_transition(title, subtitle="", evolution_stage=None, duration=1.0):
+    """Show a quick 'NEXT UP' transition screen."""
+    stage = evolution_stage or EVOLUTION_STAGES[0]
+    evo_color = stage["color"]
+    frame = stage["frames"][0]
+
+    output = Text()
+    output.append("\n\n")
+    output.append(frame, style=evo_color)
+    output.append("\n\n")
+    output.append(f"         NEXT UP\n\n", style="bold bright_white")
+    output.append(f"         {title}\n", style=C_EXERCISE)
+    if subtitle:
+        output.append(f"\n         {subtitle}\n", style=C_SUBTITLE)
+    output.append(f"\n         {get_random_encouragement()}\n", style="italic bright_yellow")
+
+    panel = Panel(output, border_style=evo_color, padding=(1, 4))
+
+    with Live(console=console, refresh_per_second=4, screen=True) as live:
+        ticks = int(duration * 4)
+        for t in range(ticks):
+            # Cycle through frames for movement
+            f = stage["frames"][t % len(stage["frames"])]
+            out2 = Text()
+            out2.append("\n\n")
+            out2.append(f, style=evo_color)
+            out2.append("\n\n")
+            out2.append(f"         NEXT UP\n\n", style="bold bright_white")
+            out2.append(f"         {title}\n", style=C_EXERCISE)
+            if subtitle:
+                out2.append(f"\n         {subtitle}\n", style=C_SUBTITLE)
+            out2.append(f"\n         {get_random_encouragement()}\n", style="italic bright_yellow")
+            panel2 = Panel(out2, border_style=evo_color, padding=(1, 4))
+            live.update(panel2)
+            time.sleep(TICK_DURATION)
+
+
+def animate_block(title, seconds, frames, subtitle="", is_rest=False,
+                  evolution_stage=None):
     """Flicker-free 4fps animation using Rich Live."""
     total = max(int(seconds), 1)
     total_ticks = total * 4  # 4 ticks per second
-    tick = 0
+    evo_color = (evolution_stage or EVOLUTION_STAGES[0])["color"] if evolution_stage else None
+    encouragement = get_random_encouragement() if is_rest else ""
 
     with Live(console=console, refresh_per_second=8, screen=True) as live:
         for t in range(total_ticks):
@@ -1089,20 +1403,24 @@ def animate_block(title, seconds, frames, subtitle="", is_rest=False):
             panel = build_exercise_frame(
                 title, frame_art, remaining, total,
                 subtitle=subtitle, is_rest=is_rest, tick_count=t,
+                encouragement=encouragement if is_rest else "",
+                evolution_color=evo_color,
             )
             live.update(panel)
             time.sleep(TICK_DURATION)
 
 
-def countdown(seconds):
-    """Flicker-free countdown with 4fps animation."""
+def countdown(seconds, evolution_stage=None):
+    """Flicker-free countdown with 4fps animation using evolution art."""
+    stage = evolution_stage or EVOLUTION_STAGES[0]
     total_ticks = seconds * 4
     with Live(console=console, refresh_per_second=8, screen=True) as live:
         for t in range(total_ticks):
             n = seconds - (t // 4)
             if n <= 0:
                 n = 1
-            panel = build_countdown_frame(n, tick_count=t)
+            panel = build_countdown_frame(n, tick_count=t,
+                                          evolution_stage=stage)
             live.update(panel)
             time.sleep(TICK_DURATION)
 
@@ -1373,7 +1691,9 @@ def run_workout(config, state, auto_start=False):
             return
 
     # ── Countdown ────────────────────────────────────────────────
-    countdown(int(settings.get("countdown_seconds", 5)))
+    evo_stage = get_evolution_stage(state)
+    countdown(int(settings.get("countdown_seconds", 5)),
+              evolution_stage=evo_stage)
 
     # ── Workout loop ─────────────────────────────────────────────
     total_seconds = 0
@@ -1381,23 +1701,30 @@ def run_workout(config, state, auto_start=False):
         for ex_idx, ex in enumerate(workout["exercises"], start=1):
             current_value = get_progressed_value(ex, state)
             subtitle = (
-                f"{workout['name']}  \u2502  Round {round_idx}/{rounds}"
-                f"  \u2502  Exercise {ex_idx}/{len(workout['exercises'])}"
+                f"{workout['name']}  |  Round {round_idx}/{rounds}"
+                f"  |  Exercise {ex_idx}/{len(workout['exercises'])}"
+                f"  |  {evo_stage['name']}"
             )
             frames = ASCII_FRAMES.get(ex["name"], ASCII_FRAMES["REST"])
 
+            # Transition screen before each exercise
+            show_transition(ex["name"], subtitle, evolution_stage=evo_stage,
+                            duration=1.5)
+
             if ex["mode"] == "time":
                 animate_block(ex["name"], current_value, frames,
-                              subtitle, is_rest=False)
+                              subtitle, is_rest=False,
+                              evolution_stage=evo_stage)
                 total_seconds += current_value
             else:
                 console.clear()
+                evo_color = evo_stage["color"]
                 console.print(Panel(
                     Text(f"{frames[0]}\n\n  Target reps: {current_value}",
                          style=C_EXERCISE),
                     title=f"[{C_EXERCISE}]{ex['name']}[/{C_EXERCISE}]",
                     subtitle=f"[{C_SUBTITLE}]{subtitle}[/{C_SUBTITLE}]",
-                    border_style=C_BORDER,
+                    border_style=evo_color,
                 ))
                 prompt_enter("  Press Enter when done...")
                 total_seconds += current_value * 3
@@ -1408,12 +1735,14 @@ def run_workout(config, state, auto_start=False):
             if not is_last_exercise:
                 rest = int(settings.get("rest_between_exercises", 20))
                 animate_block("REST", rest, ASCII_FRAMES["REST"],
-                              "Catch your breath", is_rest=True)
+                              "Catch your breath", is_rest=True,
+                              evolution_stage=evo_stage)
                 total_seconds += rest
             elif not is_last_round:
                 rest = int(settings.get("rest_between_rounds", 45))
                 animate_block("ROUND BREAK", rest, ASCII_FRAMES["REST"],
-                              "Shake it out!", is_rest=True)
+                              "Shake it out!", is_rest=True,
+                              evolution_stage=evo_stage)
                 total_seconds += rest
 
     # ── Save results ─────────────────────────────────────────────
@@ -1452,9 +1781,12 @@ def run_workout(config, state, auto_start=False):
         })
 
     # ── Done screen ──────────────────────────────────────────────
+    evo_stage = get_evolution_stage(state)  # re-fetch in case level changed
     console.clear()
     done_text = Text()
     done_text.append(ASCII_FRAMES["DONE"][0], style=C_DONE)
+    done_text.append("\n")
+    done_text.append(evo_stage["frames"][0], style=evo_stage["color"])
     done_text.append("\n\n")
     done_text.append(f"  Session  : ", style="white")
     done_text.append(f"{workout['name']}\n", style=C_EXERCISE)
@@ -1804,6 +2136,146 @@ def open_config_hint():
     prompt_enter()
 
 
+# ── Dev menu ─────────────────────────────────────────────────────────
+def dev_menu(config, state):
+    """Hidden developer menu for previewing all visual elements."""
+    while True:
+        console.clear()
+        console.print("[bold bright_magenta]--- DEV MENU ---[/]\n")
+        console.print("  [bright_cyan]1)[/]  Browse all Blobby evolutions")
+        console.print("  [bright_cyan]2)[/]  Preview exercise animations (5s each)")
+        console.print("  [bright_cyan]3)[/]  Preview countdown")
+        console.print("  [bright_cyan]4)[/]  Preview transition screen")
+        console.print("  [bright_cyan]5)[/]  Preview done screen")
+        console.print("  [bright_cyan]6)[/]  Timer color gradient test")
+        console.print("  [bright_cyan]7)[/]  Back / quit")
+        choice = input("\n  Select: ").strip()
+
+        if choice == "1":
+            dev_browse_evolutions()
+        elif choice == "2":
+            dev_preview_exercises()
+        elif choice == "3":
+            dev_preview_countdown()
+        elif choice == "4":
+            dev_preview_transitions()
+        elif choice == "5":
+            dev_preview_done(state)
+        elif choice == "6":
+            dev_timer_gradient()
+        elif choice == "7":
+            break
+
+
+def dev_browse_evolutions():
+    """Show all 5 evolution stages with animated frames."""
+    for si, stage in enumerate(EVOLUTION_STAGES):
+        console.clear()
+        console.print(
+            f"[bold bright_magenta]Evolution {si + 1}/5: "
+            f"{stage['name']} (Level {stage['level_range'][0]}-{stage['level_range'][1]})[/]\n")
+
+        for fi, frame in enumerate(stage["frames"]):
+            console.print(f"  [dim]Frame {fi + 1}/{len(stage['frames'])}:[/dim]")
+            console.print(f"[{stage['color']}]{frame}[/{stage['color']}]")
+            console.print()
+
+        # Also show animated for 3 seconds
+        console.print("[dim]Animating for 3 seconds...[/dim]")
+        time.sleep(0.5)
+        with Live(console=console, refresh_per_second=8, screen=True) as live:
+            for t in range(12):  # 3 seconds at 4fps
+                fidx = (t // FRAME_SWITCH_TICKS) % len(stage["frames"])
+                output = Text()
+                output.append(
+                    f"\n  Evolution {si + 1}/5: {stage['name']}"
+                    f" (Level {stage['level_range'][0]}-{stage['level_range'][1]})\n\n",
+                    style="bold bright_magenta",
+                )
+                output.append(stage["frames"][fidx], style=stage["color"])
+                output.append(f"\n\n  Frame {fidx + 1}/{len(stage['frames'])}\n",
+                              style="dim")
+                panel = Panel(output, border_style=stage["color"],
+                              title=f"[{stage['color']}]{stage['name']}[/{stage['color']}]")
+                live.update(panel)
+                time.sleep(TICK_DURATION)
+
+        if si < len(EVOLUTION_STAGES) - 1:
+            prompt_enter(f"  Enter for next evolution ({EVOLUTION_STAGES[si + 1]['name']})...")
+        else:
+            prompt_enter("  That's all evolutions!")
+
+
+def dev_preview_exercises():
+    """Preview each exercise animation for 5 seconds."""
+    exercises = [k for k in ASCII_FRAMES.keys()
+                 if k not in ("REST", "DONE", "COUNTDOWN")]
+    for name in exercises:
+        frames = ASCII_FRAMES[name]
+        stage = EVOLUTION_STAGES[2]  # Use Iron Blobby for preview
+        animate_block(name, 5, frames,
+                      subtitle=f"DEV PREVIEW  |  {len(frames)} frames",
+                      is_rest=False, evolution_stage=stage)
+
+    # Also show REST
+    animate_block("REST", 5, ASCII_FRAMES["REST"],
+                  subtitle="DEV PREVIEW  |  Rest animation",
+                  is_rest=True, evolution_stage=EVOLUTION_STAGES[0])
+
+
+def dev_preview_countdown():
+    """Preview countdown with each evolution stage."""
+    for si, stage in enumerate(EVOLUTION_STAGES):
+        console.clear()
+        console.print(
+            f"[bold bright_magenta]Countdown with: {stage['name']}[/]")
+        time.sleep(0.5)
+        countdown(3, evolution_stage=stage)
+    prompt_enter("  All countdowns done!")
+
+
+def dev_preview_transitions():
+    """Preview transition screens for each evolution."""
+    exercises = ["Push-Ups", "Squats", "Plank", "Superman"]
+    for si, stage in enumerate(EVOLUTION_STAGES):
+        ex = exercises[si % len(exercises)]
+        show_transition(ex, f"Round 1/3  |  {stage['name']}",
+                        evolution_stage=stage, duration=2.0)
+    prompt_enter("  All transitions done!")
+
+
+def dev_preview_done(state):
+    """Preview done screen."""
+    console.clear()
+    done_text = Text()
+    done_text.append(ASCII_FRAMES["DONE"][0], style=C_DONE)
+    for si, stage in enumerate(EVOLUTION_STAGES):
+        done_text.append(f"\n\n  --- {stage['name']} ---\n", style="bold bright_magenta")
+        done_text.append(stage["frames"][0], style=stage["color"])
+    console.print(Panel(done_text,
+                        title=f"[{C_DONE}]ALL EVOLUTION FORMS[/{C_DONE}]",
+                        border_style=C_DONE, padding=(1, 2)))
+    prompt_enter()
+
+
+def dev_timer_gradient():
+    """Show timer at different remaining values to preview color gradient."""
+    console.clear()
+    console.print("[bold bright_magenta]Timer Color Gradient Test[/]\n")
+    test_values = [60, 45, 30, 20, 15, 10, 7, 5, 4, 3, 2, 1]
+    total = 60
+    for remaining in test_values:
+        tc = timer_color(remaining, total)
+        bc = border_color(remaining, total)
+        bar = make_progress_bar_text(total - remaining, total, width=20)
+        console.print(
+            f"  [{tc}]{fmt_time(remaining):>6}[/{tc}]  "
+            f"[{bc}]border[/{bc}]  "
+            f"{bar}",
+        )
+    prompt_enter()
+
+
 # ── CLI entry point ──────────────────────────────────────────────────
 BANNER = r"""
  __        __         _               _      ____ _     ___
@@ -1855,6 +2327,8 @@ def main():
             new_idx = state["current_workout_index"]
             console.print(
                 f"[{C_DONE}]Skipped to: {workouts[new_idx]['name']}[/{C_DONE}]")
+        elif cmd == "--dev":
+            dev_menu(config, state)
         elif cmd == "reset":
             confirm = input("Reset all progress? (y/N): ").strip().lower()
             if confirm == "y":
@@ -1875,14 +2349,52 @@ def main():
         workouts = config["workouts"]
         idx = int(state.get("current_workout_index", 0)) % max(len(workouts), 1)
         next_workout = workouts[idx]["name"] if workouts else "None"
+        level = state.get("level", 1)
         level_title = state.get("level_title", "Couch Potato")
         streak = state.get("current_streak", 0)
+        xp = state.get("xp", 0)
 
+        # Show Blobby in current evolution
+        evo = get_evolution_stage(state)
+        evo_frame = evo["frames"][0]
+
+        # XP bar to next level
+        next_threshold = None
+        current_threshold = 0
+        for t_xp, t_level, t_title in LEVEL_THRESHOLDS:
+            if t_level == level:
+                current_threshold = t_xp
+            if t_level == level + 1:
+                next_threshold = (t_xp, t_title)
+                break
+
+        xp_bar = ""
+        if next_threshold:
+            xp_in_level = xp - current_threshold
+            xp_needed = next_threshold[0] - current_threshold
+            filled = int(20 * xp_in_level / max(xp_needed, 1))
+            filled = min(filled, 20)
+            xp_bar = (
+                f"  XP: [{C_XP}]{xp}[/{C_XP}]  "
+                f"[{C_PROGRESS}]{'#' * filled}{'.' * (20 - filled)}[/{C_PROGRESS}]"
+                f"  [{C_SUBTITLE}]{next_threshold[0] - xp} to {next_threshold[1]}[/{C_SUBTITLE}]"
+            )
+        else:
+            xp_bar = f"  XP: [{C_XP}]{xp}[/{C_XP}]  [{C_DONE}]MAX LEVEL[/{C_DONE}]"
+
+        # Status panel with Blobby
+        status = Text()
+        status.append(evo_frame, style=evo["color"])
+        status.append(f"\n\n  {evo['name']}", style=evo["color"])
+        status.append(f"  |  Lv.{level} {level_title}", style=C_LEVEL)
+        streak_str = f"  |  Streak: {streak}d" if streak > 0 else ""
+        status.append(streak_str, style=C_STREAK)
+        console.print(Panel(status, border_style=evo["color"], padding=(0, 2)))
+
+        console.print(xp_bar)
         console.print(
-            f"  [{C_SUBTITLE}]Next up: [{C_EXERCISE}]{next_workout}"
-            f"[/{C_EXERCISE}]  |  Session #{session_num}"
-            f"  |  Lv.{state.get('level', 1)} {level_title}"
-            f"  |  Streak: {streak}d[/{C_SUBTITLE}]\n")
+            f"\n  [{C_SUBTITLE}]Next up: [{C_EXERCISE}]{next_workout}"
+            f"[/{C_EXERCISE}]  |  Session #{session_num}[/{C_SUBTITLE}]\n")
         console.print(f"  [{C_PROGRESS}]1)[/{C_PROGRESS}]  Start today's workout")
         console.print(f"  [{C_PROGRESS}]2)[/{C_PROGRESS}]  Show history")
         console.print(f"  [{C_PROGRESS}]3)[/{C_PROGRESS}]  Show stats")

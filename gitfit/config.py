@@ -35,10 +35,24 @@ try:
 except ImportError:
     HAS_OPENAI = False
 
-console = Console()
+# Max terminal width to prevent overflow
+MAX_WIDTH = 80
+
+_force_terminal = os.environ.get("FORCE_COLOR") == "1"
+if _force_terminal:
+    import sys as _sys
+    _width = min(int(os.environ.get("COLUMNS", MAX_WIDTH)), MAX_WIDTH)
+    console = Console(force_terminal=True, width=_width, file=_sys.stdout)
+    # Override clear() to use ANSI codes instead of os.system("cls")
+    def _ansi_clear(home: bool = True) -> None:
+        console.file.write("\033[2J\033[H")
+        console.file.flush()
+    console.clear = _ansi_clear
+else:
+    console = Console(width=min(os.get_terminal_size().columns, MAX_WIDTH) if os.isatty(1) else MAX_WIDTH)
 
 # ── Paths ────────────────────────────────────────────────────────────
-APP_DIR = Path.home() / ".gitfit"
+APP_DIR = Path(os.environ["GITFIT_HOME"]) if os.environ.get("GITFIT_HOME") else Path.home() / ".gitfit"
 STATE_FILE = APP_DIR / "state.json"
 CONFIG_FILE = APP_DIR / "config.json"
 

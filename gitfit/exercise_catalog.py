@@ -54,9 +54,20 @@ def get_exercise_variants(name):
 
 
 def get_animation_key(name):
-    """Get the animation key for an exercise. Falls back to the name itself."""
+    """Get the animation key for an exercise. Falls back to the name itself.
+    Also registers inline animation_frames if present."""
     entry = get_exercise(name)
-    return entry.get("animation_key", name) if entry else name
+    if not entry:
+        return name
+
+    # If exercise has inline animation_frames, register them in the art system
+    if entry.get("animation_frames"):
+        from gitfit.art import EXERCISE_FRAMES
+        if name not in EXERCISE_FRAMES:
+            EXERCISE_FRAMES[name] = entry["animation_frames"]
+        return name
+
+    return entry.get("animation_key", name)
 
 
 def catalog_names():

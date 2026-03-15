@@ -22,7 +22,7 @@ from gitfit.screens import (
     cmd_achievements, cmd_log, cmd_export, cmd_plan,
     cmd_profile, open_config_hint,
     cmd_tree, cmd_diff, cmd_star, cmd_version_history,
-    cmd_exercises,
+    cmd_exercises, cmd_browse_exercises,
 )
 from gitfit.ai import cmd_coach, cmd_generate, cmd_adapt, cmd_setup_key, cmd_generate_exercise, cmd_ai_provider
 from gitfit.user import cmd_whoami, cmd_edit_profile, cmd_auth, cmd_link, cmd_push
@@ -102,10 +102,11 @@ def _ai_submenu(config, state):
         console.print(f"[{C_TITLE}]  AI Features[/{C_TITLE}]\n")
         console.print(f"  Provider: [{C_DONE}]{provider}[/{C_DONE}]    API Key: {key_status}    SDK: {sdk_status}\n")
         console.print(f"  [{C_PROGRESS}]1)[/{C_PROGRESS}]  Coach -- get personalized advice")
-        console.print(f"  [{C_PROGRESS}]2)[/{C_PROGRESS}]  Generate -- create a workout from a description")
-        console.print(f"  [{C_PROGRESS}]3)[/{C_PROGRESS}]  Adapt -- AI tweaks your existing workouts")
-        console.print(f"  [{C_PROGRESS}]4)[/{C_PROGRESS}]  Setup API key / provider")
-        console.print(f"  [{C_PROGRESS}]5)[/{C_PROGRESS}]  Back")
+        console.print(f"  [{C_PROGRESS}]2)[/{C_PROGRESS}]  Generate workout -- create a workout from a description")
+        console.print(f"  [{C_PROGRESS}]3)[/{C_PROGRESS}]  Generate exercise -- create an exercise with ASCII art")
+        console.print(f"  [{C_PROGRESS}]4)[/{C_PROGRESS}]  Adapt -- AI tweaks your existing workouts")
+        console.print(f"  [{C_PROGRESS}]5)[/{C_PROGRESS}]  Setup API key / provider")
+        console.print(f"  [{C_PROGRESS}]6)[/{C_PROGRESS}]  Back")
         choice = input("\n  Select: ").strip()
 
         if choice == "1":
@@ -116,12 +117,16 @@ def _ai_submenu(config, state):
                 cmd_generate(config, state, prompt)
                 config = load_config()
         elif choice == "3":
+            prompt = input("  Describe your exercise: ").strip()
+            if prompt:
+                cmd_generate_exercise(config, state, prompt)
+        elif choice == "4":
             cmd_adapt(config, state)
             config = load_config()  # reload since adapt modifies config
-        elif choice == "4":
+        elif choice == "5":
             cmd_setup_key()
             config = load_config()
-        elif choice == "5":
+        elif choice == "6":
             break
 
 
@@ -193,7 +198,10 @@ def main():
             show_status_json(config, state)
         elif cmd == "exercises":
             slug = sys.argv[2] if len(sys.argv) > 2 else None
-            cmd_exercises(slug)
+            if slug:
+                cmd_exercises(slug)
+            else:
+                cmd_browse_exercises()
         elif cmd == "browse":
             cmd_browse(config, list_only="--list" in sys.argv)
         elif cmd == "export-ow":
@@ -272,11 +280,10 @@ def main():
         streak = state.get("current_streak", 0)
         xp = state.get("xp", 0)
 
-        # Show Blobby in current evolution
+        # Show Blobby + status compact
         evo = get_evolution_stage(state)
-        evo_frame = evo["frames"][0]
 
-        # XP bar to next level
+        # XP bar
         next_threshold = None
         current_threshold = 0
         for t_xp, t_level, t_title in LEVEL_THRESHOLDS:
@@ -286,42 +293,40 @@ def main():
                 next_threshold = (t_xp, t_title)
                 break
 
-        xp_bar = ""
         if next_threshold:
             xp_in_level = xp - current_threshold
             xp_needed = next_threshold[0] - current_threshold
-            filled = int(20 * xp_in_level / max(xp_needed, 1))
-            filled = min(filled, 20)
+            filled = int(15 * xp_in_level / max(xp_needed, 1))
+            filled = min(filled, 15)
             xp_bar = (
-                f"  XP: [{C_XP}]{xp}[/{C_XP}]  "
-                f"[{C_PROGRESS}]{'#' * filled}{'.' * (20 - filled)}[/{C_PROGRESS}]"
-                f"  [{C_SUBTITLE}]{next_threshold[0] - xp} to {next_threshold[1]}[/{C_SUBTITLE}]"
+                f"[{C_XP}]{xp}XP[/{C_XP}] "
+                f"[{C_PROGRESS}]{'#' * filled}{'.' * (15 - filled)}[/{C_PROGRESS}]"
+                f" [{C_SUBTITLE}]{next_threshold[0] - xp} to {next_threshold[1]}[/{C_SUBTITLE}]"
             )
         else:
-            xp_bar = f"  XP: [{C_XP}]{xp}[/{C_XP}]  [{C_DONE}]MAX LEVEL[/{C_DONE}]"
+            xp_bar = f"[{C_XP}]{xp}XP[/{C_XP}] [{C_DONE}]MAX LEVEL[/{C_DONE}]"
 
-        # Status panel with Blobby
-        status = Text()
-        status.append(evo_frame, style=evo["color"])
-        status.append(f"\n\n  {evo['name']}", style=evo["color"])
-        status.append(f"  |  Lv.{level} {level_title}", style=C_LEVEL)
-        streak_str = f"  |  Streak: {streak}d" if streak > 0 else ""
-        status.append(streak_str, style=C_STREAK)
-        console.print(Panel(status, border_style=evo["color"], padding=(0, 2)))
-
-        console.print(xp_bar)
+        # Compact: Blobby name + stats on one line, XP on next
         console.print(
-            f"\n  [{C_SUBTITLE}]Next up: [{C_EXERCISE}]{next_workout}"
+            f"  [{evo['color']}]{evo['name']}[/{evo['color']}]"
+            f"  |  [{C_LEVEL}]Lv.{level} {level_title}[/{C_LEVEL}]"
+            f"{'  |  ' + f'[{C_STREAK}]Streak: {streak}d[/{C_STREAK}]' if streak > 0 else ''}"
+        )
+        console.print(f"  {xp_bar}")
+        console.print(
+            f"  [{C_SUBTITLE}]Next: [{C_EXERCISE}]{next_workout}"
             f"[/{C_EXERCISE}]  |  Session #{session_num}[/{C_SUBTITLE}]\n")
-        console.print(f"  [{C_PROGRESS}]1)[/{C_PROGRESS}]  Start today's workout")
-        console.print(f"  [{C_PROGRESS}]2)[/{C_PROGRESS}]  Workouts (view / edit / add)")
-        console.print(f"  [{C_PROGRESS}]3)[/{C_PROGRESS}]  Show history")
-        console.print(f"  [{C_PROGRESS}]4)[/{C_PROGRESS}]  Show stats")
-        console.print(f"  [{C_PROGRESS}]5)[/{C_PROGRESS}]  Achievements")
-        console.print(f"  [{C_PROGRESS}]6)[/{C_PROGRESS}]  Weekly plan")
-        console.print(f"  [{C_PROGRESS}]7)[/{C_PROGRESS}]  AI Coach / Generate")
-        console.print(f"  [{C_PROGRESS}]8)[/{C_PROGRESS}]  Config & API key")
-        console.print(f"  [{C_PROGRESS}]9)[/{C_PROGRESS}]  Quit")
+
+        console.print(f"  [{C_PROGRESS}]1)[/{C_PROGRESS}] Start workout    "
+                      f"[{C_PROGRESS}]4)[/{C_PROGRESS}] History    "
+                      f"[{C_PROGRESS}]7)[/{C_PROGRESS}] Weekly plan")
+        console.print(f"  [{C_PROGRESS}]2)[/{C_PROGRESS}] Workouts         "
+                      f"[{C_PROGRESS}]5)[/{C_PROGRESS}] Stats      "
+                      f"[{C_PROGRESS}]8)[/{C_PROGRESS}] AI Coach")
+        console.print(f"  [{C_PROGRESS}]3)[/{C_PROGRESS}] Exercises        "
+                      f"[{C_PROGRESS}]6)[/{C_PROGRESS}] Achievements "
+                      f"[{C_PROGRESS}]9)[/{C_PROGRESS}] Config")
+        console.print(f"  [{C_PROGRESS}]0)[/{C_PROGRESS}] Quit")
         choice = input("\n  Select: ").strip()
 
         if choice == "1":
@@ -333,19 +338,21 @@ def main():
             config = load_config()
             state = load_state()
         elif choice == "3":
-            show_history(state)
+            cmd_browse_exercises()
         elif choice == "4":
-            show_stats(config, state)
+            show_history(state)
         elif choice == "5":
-            cmd_achievements(state)
+            show_stats(config, state)
         elif choice == "6":
-            cmd_plan(config, state)
+            cmd_achievements(state)
         elif choice == "7":
+            cmd_plan(config, state)
+        elif choice == "8":
             _ai_submenu(config, state)
             config = load_config()
-        elif choice == "8":
-            _config_submenu(config)
         elif choice == "9":
+            _config_submenu(config)
+        elif choice == "0":
             console.print(
                 f"\n  [{C_DONE}]Stay consistent. See you next time![/{C_DONE}]\n")
             break

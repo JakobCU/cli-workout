@@ -562,45 +562,7 @@ def cmd_exercises(slug=None):
             console.print(f"[red]Exercise '{slug}' not found.[/red]")
             return
 
-        console.print(f"\n[{C_TITLE}]  {entry['name']}[/{C_TITLE}]")
-        console.print(f"  [dim]{entry.get('slug', '')}[/dim]\n")
-        console.print(f"  {entry.get('description', '')}\n")
-
-        # Show animation frame 0
-        anim_key = entry.get("animation_key", entry["name"])
-        frames = ASCII_FRAMES.get(anim_key)
-        if frames:
-            console.print(f"[{C_DONE}]{frames[0]}[/{C_DONE}]\n")
-
-        # Muscle groups
-        mgs = entry.get("muscle_groups", [])
-        if mgs:
-            console.print(f"  Muscle groups: [{C_EXERCISE}]{', '.join(mgs)}[/{C_EXERCISE}]")
-
-        # Defaults
-        console.print(f"  Default: {entry.get('default_value', 30)}"
-                      f"{'s' if entry.get('default_mode') == 'time' else ' reps'}")
-
-        # Tips
-        tips = entry.get("tips", [])
-        if tips:
-            console.print(f"\n  [{C_PROGRESS}]Tips:[/{C_PROGRESS}]")
-            for tip in tips:
-                console.print(f"    - {tip}")
-
-        # Variants
-        variants = entry.get("variants", [])
-        if variants:
-            console.print(f"\n  [{C_PROGRESS}]Variants:[/{C_PROGRESS}]")
-            for v in variants:
-                console.print(
-                    f"    [{C_EXERCISE}]{v['name']}[/{C_EXERCISE}]  "
-                    f"[dim]{v.get('description', '')}[/dim]")
-                vms = v.get("muscle_groups", [])
-                if vms:
-                    console.print(f"      Muscles: {', '.join(vms)}  "
-                                  f"Default: {v.get('default_value', 30)}s")
-        console.print()
+        _show_exercise_detail(entry, ASCII_FRAMES)
         return
 
     # List all exercises
@@ -618,3 +580,94 @@ def cmd_exercises(slug=None):
             f"[dim]{', '.join(mgs)}{variant_label}[/dim]"
         )
     console.print(f"\n  [dim]Use: python app.py exercises <slug> for details[/dim]\n")
+
+
+def _show_exercise_detail(entry, ascii_frames):
+    """Show full details for a single exercise."""
+    console.print(f"\n[{C_TITLE}]  {entry['name']}[/{C_TITLE}]")
+    console.print(f"  [dim]{entry.get('slug', '')}[/dim]\n")
+    console.print(f"  {entry.get('description', '')}\n")
+
+    # Show animation frame 0
+    anim_key = entry.get("animation_key", entry["name"])
+    frames = ascii_frames.get(anim_key) or entry.get("animation_frames")
+    if frames:
+        console.print(f"[{C_DONE}]{frames[0]}[/{C_DONE}]\n")
+
+    # Muscle groups
+    mgs = entry.get("muscle_groups", [])
+    if mgs:
+        console.print(f"  Muscle groups: [{C_EXERCISE}]{', '.join(mgs)}[/{C_EXERCISE}]")
+
+    # Defaults
+    console.print(f"  Default: {entry.get('default_value', 30)}"
+                  f"{'s' if entry.get('default_mode') == 'time' else ' reps'}")
+
+    # Tips
+    tips = entry.get("tips", [])
+    if tips:
+        console.print(f"\n  [{C_PROGRESS}]Tips:[/{C_PROGRESS}]")
+        for tip in tips:
+            console.print(f"    - {tip}")
+
+    # Variants
+    variants = entry.get("variants", [])
+    if variants:
+        console.print(f"\n  [{C_PROGRESS}]Variants:[/{C_PROGRESS}]")
+        for v in variants:
+            console.print(
+                f"    [{C_EXERCISE}]{v['name']}[/{C_EXERCISE}]  "
+                f"[dim]{v.get('description', '')}[/dim]")
+            vms = v.get("muscle_groups", [])
+            if vms:
+                console.print(f"      Muscles: {', '.join(vms)}  "
+                              f"Default: {v.get('default_value', 30)}s")
+    console.print()
+
+
+def cmd_browse_exercises():
+    """Interactive exercise browser with animation preview."""
+    from gitfit.exercise_catalog import EXERCISE_CATALOG
+    from gitfit.art import ASCII_FRAMES, EVOLUTION_STAGES
+    from gitfit.animation import animate_block, TICK_DURATION, FRAME_SWITCH_TICKS
+
+    if not EXERCISE_CATALOG:
+        console.print("[dim]No exercises in catalog.[/dim]")
+        prompt_enter()
+        return
+
+    entries = list(EXERCISE_CATALOG.values())
+    idx = 0
+
+    while True:
+        entry = entries[idx]
+        console.clear()
+        console.print(f"[{C_TITLE}]  Exercise Browser[/{C_TITLE}]  "
+                      f"[dim]{idx + 1}/{len(entries)}[/dim]\n")
+
+        _show_exercise_detail(entry, ASCII_FRAMES)
+
+        console.print(f"  [{C_PROGRESS}]n)[/{C_PROGRESS}] Next    "
+                      f"[{C_PROGRESS}]p)[/{C_PROGRESS}] Previous    "
+                      f"[{C_PROGRESS}]a)[/{C_PROGRESS}] Animate    "
+                      f"[{C_PROGRESS}]q)[/{C_PROGRESS}] Back")
+        choice = input("\n  Select: ").strip().lower()
+
+        if choice == "n":
+            idx = (idx + 1) % len(entries)
+        elif choice == "p":
+            idx = (idx - 1) % len(entries)
+        elif choice == "a":
+            # Play animation for 5 seconds
+            anim_key = entry.get("animation_key", entry["name"])
+            frames = ASCII_FRAMES.get(anim_key) or entry.get("animation_frames")
+            if frames:
+                stage = EVOLUTION_STAGES[2]  # Iron Blobby
+                animate_block(entry["name"], 5, frames,
+                              subtitle=f"{len(frames)} frames  |  Press Enter when done",
+                              is_rest=False, evolution_stage=stage)
+            else:
+                console.print("  [dim]No animation available for this exercise.[/dim]")
+                prompt_enter()
+        elif choice in ("q", "b", ""):
+            break

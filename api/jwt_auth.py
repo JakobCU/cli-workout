@@ -16,6 +16,15 @@ def _ensure_jwt_secret() -> str:
     if secret:
         return secret
 
+    # Try reading from .env file directly
+    if _ENV_PATH.exists():
+        for line in _ENV_PATH.read_text(encoding="utf-8").splitlines():
+            if line.strip().startswith("JWT_SECRET="):
+                secret = line.split("=", 1)[1].strip()
+                if secret:
+                    os.environ["JWT_SECRET"] = secret
+                    return secret
+
     # Generate and persist
     secret = secrets.token_urlsafe(48)
     lines = []

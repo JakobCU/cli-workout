@@ -28,7 +28,7 @@ from api.jwt_auth import create_jwt
 app = FastAPI(
     title="GitFitHub API",
     description="GitHub for Workouts -- API backend",
-    version="0.2.0",
+    version="0.3.0",
 )
 
 app.add_middleware(
@@ -44,6 +44,7 @@ app.add_middleware(
 @app.on_event("startup")
 def startup():
     init_db()
+    print(f"[startup] GitFitHub API v0.3.0 ready")
 
 
 # ── Auth dependency ──────────────────────────────────────────────────
@@ -55,6 +56,15 @@ async def get_current_user(authorization: str = Header(None)):
     if not user:
         raise HTTPException(status_code=401, detail="Invalid token")
     return user
+
+
+# ── WebSocket terminal (live demo) ───────────────────────────────────
+from fastapi import WebSocket as _WebSocket
+from api.terminal import websocket_terminal
+
+@app.websocket("/ws/terminal")
+async def ws_terminal(ws: _WebSocket):
+    await websocket_terminal(ws)
 
 
 # ── Public endpoints ─────────────────────────────────────────────────

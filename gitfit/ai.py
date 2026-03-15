@@ -386,8 +386,66 @@ def cmd_adapt(config, state):
     prompt_enter()
 
 
+def _generate_ascii_frames(provider, exercise_name, description):
+    """Generate custom ASCII animation frames for an exercise using AI."""
+    from gitfit.art import EXERCISE_FRAMES
+
+    # Get a real example to show the AI the exact style
+    example_name = "Push-Ups"
+    example_frames = EXERCISE_FRAMES.get(example_name, [])
+    example_text = ""
+    if example_frames:
+        example_text = f"Here are the Push-Ups frames as a style reference:\n"
+        for i, frame in enumerate(example_frames[:3]):
+            example_text += f"\n--- Frame {i} ---{frame}\n"
+
+    system_prompt = (
+        "Generate ASCII art animation frames for a workout exercise. "
+        "Output ONLY a valid JSON array of strings, no markdown, no code fences.\n\n"
+        "Rules:\n"
+        "- Generate exactly 4 frames showing the exercise movement cycle\n"
+        "- Each frame is a multi-line ASCII art string\n"
+        "- The character is a cute blob monster (round body, small horns \\  / on top)\n"
+        "- Each frame MUST be max 10-12 lines tall and max 40 chars wide (strict limit, no line over 40 chars)\n"
+        "- Frame 0: starting position\n"
+        "- Frame 1: mid-movement\n"
+        "- Frame 2: end/peak position (blob shows effort: > < eyes, sweat ~)\n"
+        "- Frame 3: returning to start (blob shows happiness: ^ ^ eyes, * sparkles)\n"
+        "- Use standard ASCII only: letters, numbers, punctuation, spaces\n"
+        "- Use backslash-escaping for special chars in JSON strings\n"
+        "- The blob should be performing the actual exercise movement\n"
+        "- Keep consistent character width across all frames\n\n"
+        f"{example_text}"
+    )
+    user_message = f"Generate 4 ASCII animation frames for: {exercise_name} -- {description}"
+
+    try:
+        raw = provider.chat(system_prompt, user_message, max_tokens=3000)
+    except Exception:
+        return None
+
+    raw = raw.strip()
+
+    # Parse JSON array
+    frames = None
+    for attempt in [raw, (re.search(r'\[.*\]', raw, re.DOTALL) or type('', (), {'group': lambda s: ''})()).group()]:
+        if not attempt:
+            continue
+        try:
+            frames = json.loads(attempt)
+            if isinstance(frames, list) and len(frames) >= 2:
+                # Validate each frame is a non-empty string
+                frames = [f for f in frames if isinstance(f, str) and len(f.strip()) > 5]
+                if len(frames) >= 2:
+                    return frames
+        except (json.JSONDecodeError, AttributeError):
+            continue
+
+    return None
+
+
 def cmd_generate_exercise(config, state, prompt):
-    """AI exercise generation: describe an exercise, get a full .exercise.gitfit."""
+    """AI exercise generation: describe an exercise, get a full .exercise.gitfit with ASCII art."""
     provider, ok = _require_ai(config)
     if not ok:
         return
@@ -417,7 +475,6 @@ def cmd_generate_exercise(config, state, prompt):
         '  "muscle_groups": ["primary", "secondary"],\n'
         '  "default_mode": "time",\n'
         '  "default_value": 30,\n'
-        '  "animation_key": "closest existing exercise or null",\n'
         '  "tips": ["tip 1", "tip 2", "tip 3"],\n'
         '  "variants": [\n'
         '    {"name": "Variant Name", "slug": "variant-slug", '
@@ -430,10 +487,6 @@ def cmd_generate_exercise(config, state, prompt):
         '- default_value: 15-60 for time, 8-20 for reps\n'
         '- muscle_groups: use lowercase (chest, shoulders, triceps, quads, '
         'glutes, hamstrings, core, obliques, lower back, calves, hip flexors, adductors, lats)\n'
-        '- animation_key: pick the closest match from these existing animations: '
-        'Push-Ups, Squats, Plank, Reverse Lunges, Superman, '
-        'Side Plank Left, Side Plank Right, Glute Bridge, Bird Dog. '
-        'Use null if none fits.\n'
         '- Include 1-3 variants (creative variations of the exercise)\n'
         '- 3 practical form tips\n'
         f'- Existing exercises to avoid duplicating: {existing}\n'
@@ -469,7 +522,7 @@ def cmd_generate_exercise(config, state, prompt):
         console.print("[red]Invalid exercise -- missing required fields.[/red]")
         return
 
-    # Display
+    # Display exercise info
     console.print(f"  [{C_EXERCISE}]{exercise['name']}[/{C_EXERCISE}]")
     console.print(f"  [dim]{exercise.get('slug', '')}[/dim]\n")
     console.print(f"  {exercise.get('description', '')}\n")
@@ -477,12 +530,6 @@ def cmd_generate_exercise(config, state, prompt):
     mode = exercise.get("default_mode", "time")
     val = exercise.get("default_value", 30)
     console.print(f"  Default: {val}{'s' if mode == 'time' else ' reps'}")
-
-    anim = exercise.get("animation_key")
-    if anim:
-        console.print(f"  Animation: [{C_DONE}]{anim}[/{C_DONE}]")
-    else:
-        console.print(f"  Animation: [dim]none (will use REST fallback)[/dim]")
 
     tips = exercise.get("tips", [])
     if tips:
@@ -495,6 +542,18 @@ def cmd_generate_exercise(config, state, prompt):
         console.print(f"\n  Variants:")
         for v in variants:
             console.print(f"    [{C_EXERCISE}]{v['name']}[/{C_EXERCISE}] -- {v.get('description', '')}")
+
+    # Generate ASCII animation frames
+    console.print(f"\n  [{evo['color']}]Generating ASCII animation...[/{evo['color']}]")
+    frames = _generate_ascii_frames(provider, exercise["name"], exercise.get("description", ""))
+    if frames:
+        exercise["animation_frames"] = frames
+        console.print(f"  Animation: [{C_DONE}]{len(frames)} custom frames generated[/{C_DONE}]")
+        # Preview first frame
+        console.print(f"\n  [dim]Frame 0 preview:[/dim]")
+        console.print(f"[{evo['color']}]{frames[0]}[/{evo['color']}]")
+    else:
+        console.print(f"  Animation: [dim]could not generate (will use fallback)[/dim]")
 
     # Confirm save
     confirm = input(f"\n  Save to exercises/{exercise['slug']}.exercise.gitfit? (y/N): ").strip().lower()
@@ -509,6 +568,10 @@ def cmd_generate_exercise(config, state, prompt):
                 console.print("[dim]Cancelled.[/dim]")
                 return
 
+        # If we have custom frames, also register them in the art system
+        if frames:
+            _save_custom_frames(exercise["name"], frames)
+
         out_path.write_text(
             json.dumps(exercise, indent=2, ensure_ascii=False) + "\n",
             encoding="utf-8",
@@ -520,6 +583,23 @@ def cmd_generate_exercise(config, state, prompt):
     else:
         console.print("[dim]Cancelled.[/dim]")
     prompt_enter()
+
+
+def _save_custom_frames(exercise_name, frames):
+    """Save custom ASCII frames to a file and register them in the art system."""
+    frames_dir = Path(__file__).resolve().parent / "art" / "custom"
+    frames_dir.mkdir(parents=True, exist_ok=True)
+
+    slug = exercise_name.lower().replace(" ", "-")
+    frame_path = frames_dir / f"{slug}.json"
+    frame_path.write_text(
+        json.dumps({"name": exercise_name, "frames": frames}, indent=2) + "\n",
+        encoding="utf-8",
+    )
+
+    # Register in the runtime art system
+    from gitfit.art import EXERCISE_FRAMES
+    EXERCISE_FRAMES[exercise_name] = frames
 
 
 def cmd_setup_key():

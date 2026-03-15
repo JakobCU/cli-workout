@@ -44,7 +44,7 @@ def fmt_time(seconds):
     return f"{m:02d}:{s:02d}"
 
 
-def make_progress_bar_text(current, total, width=44):
+def make_progress_bar_text(current, total, width=40):
     total = max(total, 1)
     pct = current / total
     filled = int(width * pct)

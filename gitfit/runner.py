@@ -209,4 +209,16 @@ def run_workout(config, state, auto_start=False):
     console.print(Panel(done_text,
                         title=f"[{C_DONE}]WORKOUT COMPLETE![/{C_DONE}]",
                         border_style=C_DONE, padding=(1, 2)))
+
+    # Offer to push to GitFitHub if linked
+    from gitfit.user import get_user
+    user = get_user()
+    if user.get("cli_token"):
+        push = input("\n  Push to GitFitHub? (y/N): ").strip().lower()
+        if push == "y":
+            from gitfit.user import cmd_push
+            cmd_push()
+        else:
+            console.print(f"  [dim]Run 'python app.py push' later to sync.[/dim]")
+
     prompt_enter()

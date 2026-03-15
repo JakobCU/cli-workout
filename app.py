@@ -11,3 +11,5 @@ if __name__ == "__main__":
         console.print(
             f"\n\n  [{C_REST}]Stopped. Progress saved up to last "
             f"completed session.[/{C_REST}]\n")
+    except EOFError:
+        pass

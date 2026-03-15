@@ -317,16 +317,9 @@ export function WebTerminal() {
         clearTimeout(timeout)
         modeRef.current = 'live'
         wsRef.current = ws
-        // Local echo only -- PTY echo is disabled server-side
+        // No local echo -- Python's readline echoes via stdout → PTY → WS
         setDataHandler((data) => {
-          if (ws.readyState !== WebSocket.OPEN) return
-          // Echo printable chars, enter, backspace locally
-          for (const ch of data) {
-            if (ch === '\r') t.write('\r\n')
-            else if (ch === '\x7f' || ch === '\b') t.write('\b \b')
-            else if (ch >= ' ') t.write(ch)
-          }
-          ws.send(data)
+          if (ws.readyState === WebSocket.OPEN) ws.send(data)
         })
       }
       ws.onmessage = (e) => t.write(e.data)

@@ -1,0 +1,30 @@
+{
+  "name": "Glute Bridge",
+  "slug": "glute-bridge",
+  "description": "Lying hip thrust that isolates the glutes and hamstrings. Essential for posterior chain activation.",
+  "muscle_groups": ["glutes", "hamstrings"],
+  "default_mode": "time",
+  "default_value": 35,
+  "animation_key": "Glute Bridge",
+  "tips": [
+    "Drive through your heels, not your toes",
+    "Squeeze your glutes hard at the top",
+    "Keep your ribs down -- don't hyperextend your lower back"
+  ],
+  "variants": [
+    {
+      "name": "Single-Leg Glute Bridge",
+      "slug": "single-leg-glute-bridge",
+      "description": "One leg elevated. Doubles the load on the working glute. Great for fixing imbalances.",
+      "muscle_groups": ["glutes", "hamstrings"],
+      "default_value": 25
+    },
+    {
+      "name": "Marching Glute Bridge",
+      "slug": "marching-glute-bridge",
+      "description": "Alternate lifting knees while holding the bridge position. Core and glute challenge.",
+      "muscle_groups": ["glutes", "hamstrings", "core"],
+      "default_value": 30
+    }
+  ]
+}

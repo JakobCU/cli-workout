@@ -1,0 +1,13 @@
+{
+  "name": "HIIT Tabata",
+  "description": "Short bursts of intense exercises with minimal rest -- Tabata style",
+  "rounds": 4,
+  "exercises": [
+    {"name": "Push-Ups", "mode": "time", "value": 20},
+    {"name": "Squats", "mode": "time", "value": 20},
+    {"name": "Plank", "mode": "time", "value": 20},
+    {"name": "Reverse Lunges", "mode": "time", "value": 20}
+  ],
+  "tags": ["hiit", "tabata", "cardio", "intense"],
+  "difficulty": "hard"
+}

@@ -1,0 +1,14 @@
+{
+  "name": "Calisthenics Basics",
+  "description": "Fundamental bodyweight movements for building a solid foundation",
+  "rounds": 3,
+  "exercises": [
+    {"name": "Push-Ups", "mode": "time", "value": 30},
+    {"name": "Squats", "mode": "time", "value": 35},
+    {"name": "Plank", "mode": "time", "value": 30},
+    {"name": "Glute Bridge", "mode": "time", "value": 25},
+    {"name": "Bird Dog", "mode": "time", "value": 25}
+  ],
+  "tags": ["calisthenics", "bodyweight", "fundamentals"],
+  "difficulty": "medium"
+}

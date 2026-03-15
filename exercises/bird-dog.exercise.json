@@ -1,0 +1,30 @@
+{
+  "name": "Bird Dog",
+  "slug": "bird-dog",
+  "description": "From all fours, extend opposite arm and leg. Builds core stability and coordination while strengthening the posterior chain.",
+  "muscle_groups": ["core", "lower back"],
+  "default_mode": "time",
+  "default_value": 30,
+  "animation_key": "Bird Dog",
+  "tips": [
+    "Move slowly and with control",
+    "Keep your hips square to the ground -- don't rotate",
+    "Reach long through your fingers and toes"
+  ],
+  "variants": [
+    {
+      "name": "Dead Bug",
+      "slug": "dead-bug",
+      "description": "The inverse of bird dog -- lying face up, extend opposite arm and leg. Core stability without back loading.",
+      "muscle_groups": ["core", "hip flexors"],
+      "default_value": 30
+    },
+    {
+      "name": "Bird Dog Crunch",
+      "slug": "bird-dog-crunch",
+      "description": "Bring elbow and knee together under your body between extensions. Adds a crunch component.",
+      "muscle_groups": ["core", "lower back", "obliques"],
+      "default_value": 25
+    }
+  ]
+}

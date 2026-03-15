@@ -3,7 +3,10 @@
     "allow": [
       "Bash(cd:*)",
       "Bash(pip install:*)",
-      "Bash(python:*)"
+      "Bash(python:*)",
+      "Bash(cp:*)",
+      "Bash(which vercel:*)",
+      "Bash(ls:*)"
     ]
   }
 }

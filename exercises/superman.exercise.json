@@ -1,0 +1,30 @@
+{
+  "name": "Superman",
+  "slug": "superman",
+  "description": "Lie face down and lift arms and legs off the floor. Strengthens the entire posterior chain, especially lower back.",
+  "muscle_groups": ["lower back", "glutes"],
+  "default_mode": "time",
+  "default_value": 25,
+  "animation_key": "Superman",
+  "tips": [
+    "Lift arms and legs simultaneously",
+    "Squeeze your glutes at the top",
+    "Keep your neck neutral -- look at the floor, not forward"
+  ],
+  "variants": [
+    {
+      "name": "Swimming Superman",
+      "slug": "swimming-superman",
+      "description": "Alternate lifting opposite arm and leg in a flutter motion. More dynamic.",
+      "muscle_groups": ["lower back", "glutes", "shoulders"],
+      "default_value": 25
+    },
+    {
+      "name": "Superman Hold",
+      "slug": "superman-hold",
+      "description": "Static hold at the top position. Pure isometric back endurance.",
+      "muscle_groups": ["lower back", "glutes"],
+      "default_value": 20
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "Full Body Easy",
+  "description": "A gentle full-body session for beginners or recovery days",
+  "rounds": 2,
+  "exercises": [
+    {"name": "Push-Ups", "mode": "time", "value": 20},
+    {"name": "Squats", "mode": "time", "value": 25},
+    {"name": "Plank", "mode": "time", "value": 20},
+    {"name": "Glute Bridge", "mode": "time", "value": 20}
+  ],
+  "tags": ["full-body", "beginner", "easy"],
+  "difficulty": "easy"
+}

@@ -1,0 +1,14 @@
+{
+  "name": "Upper Body",
+  "description": "Focus on chest, shoulders, back, and core with push-ups and planks",
+  "rounds": 3,
+  "exercises": [
+    {"name": "Push-Ups", "mode": "time", "value": 30},
+    {"name": "Plank", "mode": "time", "value": 30},
+    {"name": "Superman", "mode": "time", "value": 25},
+    {"name": "Bird Dog", "mode": "time", "value": 30},
+    {"name": "Push-Ups", "mode": "time", "value": 25}
+  ],
+  "tags": ["upper", "push", "core"],
+  "difficulty": "medium"
+}

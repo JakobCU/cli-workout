@@ -1,0 +1,14 @@
+{
+  "name": "Upper/Lower Split A",
+  "description": "Day A of an upper/lower split: push focus with core",
+  "rounds": 3,
+  "exercises": [
+    {"name": "Push-Ups", "mode": "time", "value": 35},
+    {"name": "Plank", "mode": "time", "value": 30},
+    {"name": "Superman", "mode": "time", "value": 30},
+    {"name": "Side Plank Left", "mode": "time", "value": 20},
+    {"name": "Side Plank Right", "mode": "time", "value": 20}
+  ],
+  "tags": ["split", "upper", "push"],
+  "difficulty": "medium"
+}

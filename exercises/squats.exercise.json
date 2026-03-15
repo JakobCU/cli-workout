@@ -1,0 +1,37 @@
+{
+  "name": "Squats",
+  "slug": "squats",
+  "description": "Fundamental lower body compound movement. Builds quad, glute, and hamstring strength through a deep knee bend.",
+  "muscle_groups": ["quads", "glutes", "hamstrings"],
+  "default_mode": "time",
+  "default_value": 40,
+  "animation_key": "Squats",
+  "tips": [
+    "Keep weight in your heels, not your toes",
+    "Push knees out over your toes, don't let them cave in",
+    "Go as deep as your mobility allows"
+  ],
+  "variants": [
+    {
+      "name": "Jump Squats",
+      "slug": "jump-squats",
+      "description": "Explosive squat with a jump at the top. Builds power and burns calories fast.",
+      "muscle_groups": ["quads", "glutes", "calves"],
+      "default_value": 20
+    },
+    {
+      "name": "Sumo Squats",
+      "slug": "sumo-squats",
+      "description": "Wide stance with toes pointed out. Emphasizes inner thighs and glutes.",
+      "muscle_groups": ["quads", "glutes", "adductors"],
+      "default_value": 35
+    },
+    {
+      "name": "Wall Sit",
+      "slug": "wall-sit",
+      "description": "Isometric hold with back against a wall at 90 degrees. Pure quad endurance.",
+      "muscle_groups": ["quads", "glutes"],
+      "default_value": 30
+    }
+  ]
+}

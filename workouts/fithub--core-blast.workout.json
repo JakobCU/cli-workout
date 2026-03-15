@@ -1,0 +1,14 @@
+{
+  "name": "Core Blast",
+  "description": "Target your abs, obliques, and lower back",
+  "rounds": 3,
+  "exercises": [
+    {"name": "Plank", "mode": "time", "value": 35},
+    {"name": "Side Plank Left", "mode": "time", "value": 25},
+    {"name": "Side Plank Right", "mode": "time", "value": 25},
+    {"name": "Superman", "mode": "time", "value": 30},
+    {"name": "Bird Dog", "mode": "time", "value": 30}
+  ],
+  "tags": ["core", "abs", "obliques"],
+  "difficulty": "medium"
+}

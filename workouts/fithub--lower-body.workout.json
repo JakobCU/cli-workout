@@ -1,0 +1,14 @@
+{
+  "name": "Lower Body",
+  "description": "Squats, lunges, and glute bridges for leg day",
+  "rounds": 3,
+  "exercises": [
+    {"name": "Squats", "mode": "time", "value": 40},
+    {"name": "Reverse Lunges", "mode": "time", "value": 35},
+    {"name": "Glute Bridge", "mode": "time", "value": 35},
+    {"name": "Squats", "mode": "time", "value": 35},
+    {"name": "Reverse Lunges", "mode": "time", "value": 30}
+  ],
+  "tags": ["lower", "legs", "glutes"],
+  "difficulty": "medium"
+}

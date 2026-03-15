@@ -1,0 +1,30 @@
+{
+  "name": "Reverse Lunges",
+  "slug": "reverse-lunges",
+  "description": "Step back into a deep lunge, alternating legs. Easier on the knees than forward lunges while building unilateral leg strength.",
+  "muscle_groups": ["quads", "glutes", "hamstrings"],
+  "default_mode": "time",
+  "default_value": 35,
+  "animation_key": "Reverse Lunges",
+  "tips": [
+    "Step back far enough that both knees hit 90 degrees",
+    "Keep your torso upright, don't lean forward",
+    "Push off your front heel to return to standing"
+  ],
+  "variants": [
+    {
+      "name": "Walking Lunges",
+      "slug": "walking-lunges",
+      "description": "Continuous forward-stepping lunges. Requires space but great for coordination.",
+      "muscle_groups": ["quads", "glutes", "hamstrings"],
+      "default_value": 30
+    },
+    {
+      "name": "Curtsy Lunges",
+      "slug": "curtsy-lunges",
+      "description": "Step diagonally behind your front leg. Extra emphasis on glute medius.",
+      "muscle_groups": ["glutes", "quads", "adductors"],
+      "default_value": 30
+    }
+  ]
+}

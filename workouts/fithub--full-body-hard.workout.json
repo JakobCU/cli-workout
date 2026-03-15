@@ -1,0 +1,15 @@
+{
+  "name": "Full Body Hard",
+  "description": "An intense full-body workout with 4 rounds for experienced users",
+  "rounds": 4,
+  "exercises": [
+    {"name": "Push-Ups", "mode": "time", "value": 40},
+    {"name": "Squats", "mode": "time", "value": 50},
+    {"name": "Plank", "mode": "time", "value": 40},
+    {"name": "Reverse Lunges", "mode": "time", "value": 40},
+    {"name": "Superman", "mode": "time", "value": 35},
+    {"name": "Glute Bridge", "mode": "time", "value": 35}
+  ],
+  "tags": ["full-body", "advanced", "hard"],
+  "difficulty": "hard"
+}

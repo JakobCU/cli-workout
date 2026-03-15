@@ -1,0 +1,44 @@
+{
+  "name": "Push-Ups",
+  "slug": "push-ups",
+  "description": "The king of bodyweight exercises. Targets chest, shoulders, and triceps through a full push-pull motion from the floor.",
+  "muscle_groups": ["chest", "shoulders", "triceps"],
+  "default_mode": "time",
+  "default_value": 30,
+  "animation_key": "Push-Ups",
+  "tips": [
+    "Keep your core tight and body in a straight line",
+    "Lower until chest nearly touches the floor",
+    "Push through your palms, not your fingers"
+  ],
+  "variants": [
+    {
+      "name": "Wide Push-Ups",
+      "slug": "wide-push-ups",
+      "description": "Wider hand placement shifts emphasis to the outer chest and shoulders.",
+      "muscle_groups": ["chest", "shoulders"],
+      "default_value": 25
+    },
+    {
+      "name": "Diamond Push-Ups",
+      "slug": "diamond-push-ups",
+      "description": "Hands close together forming a diamond shape. Heavy triceps emphasis.",
+      "muscle_groups": ["triceps", "chest", "shoulders"],
+      "default_value": 20
+    },
+    {
+      "name": "Incline Push-Ups",
+      "slug": "incline-push-ups",
+      "description": "Hands elevated on a surface. Easier variation, good for beginners.",
+      "muscle_groups": ["chest", "shoulders", "triceps"],
+      "default_value": 30
+    },
+    {
+      "name": "Decline Push-Ups",
+      "slug": "decline-push-ups",
+      "description": "Feet elevated on a surface. Increases upper chest and shoulder activation.",
+      "muscle_groups": ["chest", "shoulders", "triceps"],
+      "default_value": 25
+    }
+  ]
+}

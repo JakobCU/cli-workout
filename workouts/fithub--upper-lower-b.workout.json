@@ -1,0 +1,14 @@
+{
+  "name": "Upper/Lower Split B",
+  "description": "Day B of an upper/lower split: legs and posterior chain",
+  "rounds": 3,
+  "exercises": [
+    {"name": "Squats", "mode": "time", "value": 40},
+    {"name": "Reverse Lunges", "mode": "time", "value": 35},
+    {"name": "Glute Bridge", "mode": "time", "value": 30},
+    {"name": "Bird Dog", "mode": "time", "value": 25},
+    {"name": "Squats", "mode": "time", "value": 30}
+  ],
+  "tags": ["split", "lower", "legs"],
+  "difficulty": "medium"
+}

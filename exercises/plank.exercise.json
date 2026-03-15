@@ -1,0 +1,30 @@
+{
+  "name": "Plank",
+  "slug": "plank",
+  "description": "Isometric core hold that builds total-body stability. The foundation of core training.",
+  "muscle_groups": ["core", "shoulders"],
+  "default_mode": "time",
+  "default_value": 30,
+  "animation_key": "Plank",
+  "tips": [
+    "Squeeze your glutes and brace your abs",
+    "Keep a neutral spine -- don't let hips sag or pike up",
+    "Breathe steadily, don't hold your breath"
+  ],
+  "variants": [
+    {
+      "name": "Plank Shoulder Taps",
+      "slug": "plank-shoulder-taps",
+      "description": "Alternate tapping opposite shoulder while holding plank. Anti-rotation challenge.",
+      "muscle_groups": ["core", "shoulders", "obliques"],
+      "default_value": 25
+    },
+    {
+      "name": "Forearm Plank",
+      "slug": "forearm-plank",
+      "description": "Resting on forearms instead of hands. More core, less wrist strain.",
+      "muscle_groups": ["core", "shoulders"],
+      "default_value": 35
+    }
+  ]
+}

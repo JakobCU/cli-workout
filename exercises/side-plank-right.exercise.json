@@ -1,0 +1,23 @@
+{
+  "name": "Side Plank Right",
+  "slug": "side-plank-right",
+  "description": "Lateral isometric hold on the right side. Targets obliques and builds anti-lateral-flexion stability.",
+  "muscle_groups": ["obliques", "core"],
+  "default_mode": "time",
+  "default_value": 20,
+  "animation_key": "Side Plank Right",
+  "tips": [
+    "Stack your feet or stagger them for more stability",
+    "Keep your hips elevated -- don't let them sag",
+    "Free arm can reach to the ceiling for extra challenge"
+  ],
+  "variants": [
+    {
+      "name": "Side Plank Right Dips",
+      "slug": "side-plank-right-dips",
+      "description": "Lower and raise hips while in side plank. Dynamic oblique work.",
+      "muscle_groups": ["obliques", "core"],
+      "default_value": 20
+    }
+  ]
+}

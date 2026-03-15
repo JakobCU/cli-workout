@@ -1,0 +1,1 @@
+"""FitHub -- CLI Workout Tool."""

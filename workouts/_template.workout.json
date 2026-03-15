@@ -1,0 +1,13 @@
+{
+  "format": "openWorkout",
+  "version": 1,
+  "name": "My Custom Workout",
+  "description": "Describe your workout here",
+  "rounds": 3,
+  "exercises": [
+    {"name": "Push-Ups", "mode": "time", "value": 30},
+    {"name": "Squats", "mode": "time", "value": 40},
+    {"name": "Plank", "mode": "time", "value": 25}
+  ],
+  "_note": "Available exercise names with animations: Push-Ups, Squats, Plank, Reverse Lunges, Superman, Side Plank Left, Side Plank Right, Glute Bridge, Bird Dog. You can also use any other name (it will use a fallback animation). Mode can be 'time' (value = seconds) or 'reps' (value = rep count)."
+}

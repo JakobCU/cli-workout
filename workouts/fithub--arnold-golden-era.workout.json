@@ -1,0 +1,14 @@
+{
+  "name": "Arnold Golden Era",
+  "description": "Inspired by classic bodybuilding -- high volume push and core work",
+  "rounds": 4,
+  "exercises": [
+    {"name": "Push-Ups", "mode": "time", "value": 40},
+    {"name": "Plank", "mode": "time", "value": 45},
+    {"name": "Superman", "mode": "time", "value": 35},
+    {"name": "Push-Ups", "mode": "time", "value": 35},
+    {"name": "Bird Dog", "mode": "time", "value": 30}
+  ],
+  "tags": ["upper", "classic", "high-volume"],
+  "difficulty": "hard"
+}

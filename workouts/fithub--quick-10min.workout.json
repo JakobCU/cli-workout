@@ -1,0 +1,12 @@
+{
+  "name": "Quick 10min",
+  "description": "A fast 10-minute session when you're short on time",
+  "rounds": 2,
+  "exercises": [
+    {"name": "Push-Ups", "mode": "time", "value": 25},
+    {"name": "Squats", "mode": "time", "value": 30},
+    {"name": "Plank", "mode": "time", "value": 20}
+  ],
+  "tags": ["quick", "full-body", "beginner"],
+  "difficulty": "easy"
+}

@@ -21,7 +21,7 @@ export interface OpenWorkout {
 
 export const WORKOUTS: OpenWorkout[] = [
   {
-    id: "fithub/upper-body",
+    id: "gitfit/upper-body",
     name: "Upper Body",
     description: "Push-focused upper body session targeting chest, shoulders, and core.",
     difficulty: "intermediate",
@@ -40,7 +40,7 @@ export const WORKOUTS: OpenWorkout[] = [
     ],
   },
   {
-    id: "fithub/lower-body",
+    id: "gitfit/lower-body",
     name: "Lower Body",
     description: "Legs and glutes workout with squats and lunges.",
     difficulty: "intermediate",
@@ -59,7 +59,7 @@ export const WORKOUTS: OpenWorkout[] = [
     ],
   },
   {
-    id: "fithub/core-blast",
+    id: "gitfit/core-blast",
     name: "Core Blast",
     description: "Intense core workout hitting abs, obliques, and lower back.",
     difficulty: "intermediate",
@@ -78,7 +78,7 @@ export const WORKOUTS: OpenWorkout[] = [
     ],
   },
   {
-    id: "fithub/full-body-easy",
+    id: "gitfit/full-body-easy",
     name: "Full Body Easy",
     description: "Gentle full body session, great for beginners or recovery days.",
     difficulty: "beginner",
@@ -96,7 +96,7 @@ export const WORKOUTS: OpenWorkout[] = [
     ],
   },
   {
-    id: "fithub/full-body-hard",
+    id: "gitfit/full-body-hard",
     name: "Full Body Hard",
     description: "Challenging full body grind with longer holds and more rounds.",
     difficulty: "advanced",
@@ -116,7 +116,7 @@ export const WORKOUTS: OpenWorkout[] = [
     ],
   },
   {
-    id: "fithub/quick-10min",
+    id: "gitfit/quick-10min",
     name: "Quick 10min",
     description: "Fast and effective 10-minute session when you're short on time.",
     difficulty: "beginner",
@@ -133,7 +133,7 @@ export const WORKOUTS: OpenWorkout[] = [
     ],
   },
   {
-    id: "fithub/arnold-golden-era",
+    id: "gitfit/arnold-golden-era",
     name: "Arnold Golden Era",
     description: "Inspired by Arnold's classic high-volume training, adapted for bodyweight.",
     difficulty: "advanced",
@@ -154,7 +154,7 @@ export const WORKOUTS: OpenWorkout[] = [
     ],
   },
   {
-    id: "fithub/hiit-tabata",
+    id: "gitfit/hiit-tabata",
     name: "HIIT Tabata Blaster",
     description: "High intensity interval training with short bursts and minimal rest.",
     difficulty: "advanced",
@@ -173,7 +173,7 @@ export const WORKOUTS: OpenWorkout[] = [
     ],
   },
   {
-    id: "fithub/calisthenics-basics",
+    id: "gitfit/calisthenics-basics",
     name: "Calisthenics Basics",
     description: "Foundation calisthenics movements for building bodyweight strength.",
     difficulty: "beginner",
@@ -192,7 +192,7 @@ export const WORKOUTS: OpenWorkout[] = [
     ],
   },
   {
-    id: "fithub/upper-lower-a",
+    id: "gitfit/upper-lower-a",
     name: "Upper/Lower Split A (Upper)",
     description: "Day A of a classic upper/lower split - all upper body pushing and pulling.",
     difficulty: "intermediate",
@@ -212,7 +212,7 @@ export const WORKOUTS: OpenWorkout[] = [
     ],
   },
   {
-    id: "fithub/upper-lower-b",
+    id: "gitfit/upper-lower-b",
     name: "Upper/Lower Split B (Lower)",
     description: "Day B of a classic upper/lower split - legs, glutes, and posterior chain.",
     difficulty: "intermediate",

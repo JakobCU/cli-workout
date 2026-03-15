@@ -132,7 +132,7 @@ pip install anthropic
 
 # Run
 python app.py`} />
-        <p className="text-zinc-400">Config and state are auto-created in <code className="text-green-400 bg-zinc-800 px-1.5 py-0.5 rounded text-xs">~/.workout_cli/</code> on first run.</p>
+        <p className="text-zinc-400">Config and state are auto-created in <code className="text-green-400 bg-zinc-800 px-1.5 py-0.5 rounded text-xs">~/.gitfit/</code> on first run.</p>
       </Section>
 
       <Section icon={Dumbbell} title="Your First Session" color="cyan">
@@ -141,7 +141,7 @@ python app.py`} />
           <li>Press <code className="text-green-400 bg-zinc-800 px-1.5 py-0.5 rounded text-xs">1</code> to start today's workout</li>
           <li>Blobby guides you through each exercise with animated timers</li>
           <li>After the session: XP earned, streak updated, achievements checked</li>
-          <li>Run <code className="text-green-400 bg-zinc-800 px-1.5 py-0.5 rounded text-xs">python app.py profile</code> to see your FitHub profile</li>
+          <li>Run <code className="text-green-400 bg-zinc-800 px-1.5 py-0.5 rounded text-xs">python app.py profile</code> to see your GitFitHub profile</li>
         </ol>
       </Section>
 
@@ -155,7 +155,7 @@ python app.py`} />
 
         <h3 className="text-base font-semibold text-white">Stats & Profile</h3>
         <CommandTable commands={[
-          { cmd: 'python app.py profile', desc: 'FitHub profile: activity grid, muscle volume, stats' },
+          { cmd: 'python app.py profile', desc: 'GitFitHub profile: activity grid, muscle volume, stats' },
           { cmd: 'python app.py stats', desc: 'XP, level, streaks, progression' },
           { cmd: 'python app.py history', desc: 'Workout history table' },
           { cmd: 'python app.py achievements', desc: 'All achievements (locked + unlocked)' },
@@ -166,7 +166,7 @@ python app.py`} />
         <CommandTable commands={[
           { cmd: 'python app.py browse', desc: 'Interactive library browser' },
           { cmd: 'python app.py browse --list', desc: 'List all library workouts as JSON' },
-          { cmd: 'python app.py fork "fithub/slug"', desc: 'Fork a library workout' },
+          { cmd: 'python app.py fork "gitfit/slug"', desc: 'Fork a library workout' },
           { cmd: 'python app.py fork "slug" --adapt "..."', desc: 'AI-powered fork' },
         ]} />
 
@@ -191,10 +191,10 @@ python app.py`} />
       <Section icon={GitFork} title="Forking Workouts" color="purple">
         <p className="text-zinc-400">Fork any workout from the library to your local config. Optionally let AI adapt it:</p>
         <CodeBlock language="bash" code={`# Simple fork
-python app.py fork "fithub/arnold-golden-era"
+python app.py fork "gitfit/arnold-golden-era"
 
 # AI-powered adaptation
-python app.py fork "fithub/arnold-golden-era" --adapt "beginner, bodyweight only, 15min max"
+python app.py fork "gitfit/arnold-golden-era" --adapt "beginner, bodyweight only, 15min max"
 
 # Browse the library first
 python app.py browse`} />
@@ -240,7 +240,7 @@ python app.py browse`} />
       </Section>
 
       <Section icon={BookOpen} title="Configuration" color="cyan">
-        <p className="text-zinc-400">Edit <code className="text-green-400 bg-zinc-800 px-1.5 py-0.5 rounded text-xs">~/.workout_cli/config.json</code>:</p>
+        <p className="text-zinc-400">Edit <code className="text-green-400 bg-zinc-800 px-1.5 py-0.5 rounded text-xs">~/.gitfit/config.json</code>:</p>
         <CodeBlock language="jsonc" code={`{
   "profile": {
     "name": "Your Name",
@@ -273,10 +273,10 @@ python app.py status
 python app.py browse --list
 
 # Fork a workout
-python app.py fork "fithub/arnold-golden-era"
+python app.py fork "gitfit/arnold-golden-era"
 
 # AI-fork (adapt via Claude)
-python app.py fork "fithub/arnold-golden-era" --adapt "beginner, bodyweight, 15min"
+python app.py fork "gitfit/arnold-golden-era" --adapt "beginner, bodyweight, 15min"
 
 # Export workout as openWorkout JSON
 python app.py export-ow 1
@@ -312,8 +312,8 @@ python app.py export --json`} />
 
         <h3 className="text-base font-semibold text-white">browse --list → JSON</h3>
         <CodeBlock language="json" code={`[
-  {"slug": "fithub/arnold-golden-era", "name": "Arnold Golden Era", "rounds": 4, "exercises": 7},
-  {"slug": "fithub/quick-10min", "name": "Quick 10min", "rounds": 2, "exercises": 3}
+  {"slug": "gitfit/arnold-golden-era", "name": "Arnold Golden Era", "rounds": 4, "exercises": 7},
+  {"slug": "gitfit/quick-10min", "name": "Quick 10min", "rounds": 2, "exercises": 3}
 ]`} />
       </Section>
 
@@ -366,7 +366,7 @@ python app.py export --json`} />
       </Section>
 
       <Section icon={Terminal} title="Direct Config Modification" color="purple">
-        <p className="text-zinc-400">Agents can read/write <code className="text-green-400 bg-zinc-800 px-1.5 py-0.5 rounded text-xs">~/.workout_cli/config.json</code> directly.</p>
+        <p className="text-zinc-400">Agents can read/write <code className="text-green-400 bg-zinc-800 px-1.5 py-0.5 rounded text-xs">~/.gitfit/config.json</code> directly.</p>
 
         <h3 className="text-base font-semibold text-white">Adding a Workout</h3>
         <p className="text-zinc-400">Append to the <code className="text-green-400 bg-zinc-800 px-1.5 py-0.5 rounded text-xs">workouts</code> array:</p>
@@ -378,7 +378,7 @@ python app.py export --json`} />
     {"name": "Squats", "mode": "time", "value": 40}
   ],
   "_meta": {
-    "forked_from": "fithub/arnold-golden-era",
+    "forked_from": "gitfit/arnold-golden-era",
     "author": "agent-name",
     "difficulty": "beginner"
   }
@@ -437,7 +437,7 @@ python app.py export --json`} />
 python app.py generate "upper body, 20 minutes, intermediate"
 
 # AI fork from library
-python app.py fork "fithub/arnold-golden-era" --adapt "beginner, no equipment"
+python app.py fork "gitfit/arnold-golden-era" --adapt "beginner, no equipment"
 
 # Or write directly to config.json`} />
 
@@ -449,10 +449,10 @@ python app.py fork "fithub/arnold-golden-era" --adapt "beginner, no equipment"
 
       <Section icon={BookOpen} title="Data Locations" color="cyan">
         <CommandTable commands={[
-          { cmd: '~/.workout_cli/config.json', desc: 'Workouts, settings, profile' },
-          { cmd: '~/.workout_cli/state.json', desc: 'History, XP, level, streak, achievements' },
-          { cmd: 'workouts/fithub--*.workout.json', desc: 'Curated workout library files' },
-          { cmd: 'workouts/_template.workout.json', desc: 'openWorkout format template' },
+          { cmd: '~/.gitfit/config.json', desc: 'Workouts, settings, profile' },
+          { cmd: '~/.gitfit/state.json', desc: 'History, XP, level, streak, achievements' },
+          { cmd: 'workouts/gitfit--*.gitfit', desc: 'Curated workout library files' },
+          { cmd: 'workouts/_template.gitfit', desc: 'openWorkout format template' },
         ]} />
       </Section>
     </>
@@ -471,7 +471,7 @@ export function DocsPage() {
             Documentation
           </h1>
           <p className="text-zinc-400 text-lg">
-            Everything you need to get started with FitHub.
+            Everything you need to get started with GitFitHub.
           </p>
         </div>
 

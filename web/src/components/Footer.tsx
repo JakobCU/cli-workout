@@ -9,7 +9,7 @@ export function Footer() {
           <div>
             <div className="flex items-center gap-2 mb-3">
               <Dumbbell className="w-4 h-4 text-green-500" />
-              <span className="font-mono font-bold text-white">FitHub</span>
+              <span className="font-mono font-bold text-white">GitFitHub</span>
             </div>
             <p className="text-sm text-zinc-500">
               GitHub for your workouts. Open source fitness tracking with the openWorkout format.
@@ -47,7 +47,7 @@ export function Footer() {
 
         <div className="mt-10 pt-6 border-t border-zinc-800/50 text-center">
           <p className="text-xs text-zinc-600">
-            &copy; {new Date().getFullYear()} FitHub. Train hard, commit often.
+            &copy; {new Date().getFullYear()} GitFitHub. Train hard, commit often.
           </p>
         </div>
       </div>

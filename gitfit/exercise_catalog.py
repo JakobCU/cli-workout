@@ -1,4 +1,4 @@
-"""Exercise catalog: loads exercise definitions from exercises/*.exercise.json."""
+"""Exercise catalog: loads exercise definitions from exercises/*.exercise.gitfit."""
 
 import json
 from pathlib import Path
@@ -10,7 +10,7 @@ def _load_catalog():
     catalog = {}
     if not exercises_dir.is_dir():
         return catalog
-    for f in sorted(exercises_dir.glob("*.exercise.json")):
+    for f in sorted(exercises_dir.glob("*.exercise.gitfit")):
         try:
             data = json.loads(f.read_text(encoding="utf-8"))
             slug = data.get("slug", f.stem.replace(".exercise", ""))

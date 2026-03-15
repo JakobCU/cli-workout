@@ -6,20 +6,20 @@ import re
 
 from rich.table import Table
 
-from workout_cli.config import (
+from gitfit.config import (
     console, HAS_ANTHROPIC,
     C_DONE, C_EXERCISE, C_PROGRESS, C_SUBTITLE, C_TITLE,
     load_config, has_api_key, save_config,
 )
-from workout_cli.state import save_state
-from workout_cli.exercises import (
+from gitfit.state import save_state
+from gitfit.exercises import (
     AVAILABLE_EXERCISES, _estimate_workout_duration,
 )
-from workout_cli.art import get_evolution_stage
-from workout_cli.renderer import display_workout
-from workout_cli.animation import prompt_enter
-from workout_cli.library import WORKOUT_PRESETS
-from workout_cli.meta import get_meta, bump_version
+from gitfit.art import get_evolution_stage
+from gitfit.renderer import display_workout
+from gitfit.animation import prompt_enter
+from gitfit.library import WORKOUT_PRESETS
+from gitfit.meta import get_meta, bump_version
 
 
 def _workout_submenu(config, state):
@@ -310,7 +310,7 @@ def _workout_delete(config, state):
 
 def _workout_ai_pick(config, state):
     """Let AI configure workouts based on user preferences."""
-    from workout_cli.ai import _require_ai, _build_user_context
+    from gitfit.ai import _require_ai, _build_user_context
 
     client, ok = _require_ai(config)
     if not ok:

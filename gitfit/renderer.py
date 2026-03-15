@@ -3,14 +3,14 @@
 from rich.panel import Panel
 from rich.text import Text
 
-from workout_cli.config import (
+from gitfit.config import (
     C_BORDER, C_EXERCISE, C_FIRE, C_MONSTER, C_MONSTER_REST,
     C_PROGRESS, C_REST, C_SUBTITLE, C_TITLE, C_TIMER,
 )
-from workout_cli.art import render_big_time, _DIGIT_ART, _FLAME_FRAMES, _EMBER_FRAMES
-from workout_cli.art import EVOLUTION_STAGES
-from workout_cli.progression import get_random_encouragement
-from workout_cli.exercises import _estimate_workout_duration
+from gitfit.art import render_big_time, _DIGIT_ART, _FLAME_FRAMES, _EMBER_FRAMES
+from gitfit.art import EVOLUTION_STAGES
+from gitfit.progression import get_random_encouragement
+from gitfit.exercises import _estimate_workout_duration
 
 
 def timer_color(remaining, total):
@@ -162,7 +162,7 @@ def build_countdown_frame(n, tick_count=0, evolution_stage=None):
 def display_workout(workout, config, index=None):
     """Display a single workout as a Rich table."""
     from rich.table import Table
-    from workout_cli.config import console
+    from gitfit.config import console
 
     prefix = f"[{index}] " if index is not None else ""
     dur = _estimate_workout_duration(workout, config)

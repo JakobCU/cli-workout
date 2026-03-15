@@ -6,41 +6,42 @@ import time
 from rich.panel import Panel
 from rich.text import Text
 
-from workout_cli.config import (
+from gitfit.config import (
     console, HAS_ANTHROPIC,
     C_DONE, C_EXERCISE, C_LEVEL, C_PROGRESS, C_REST,
     C_STREAK, C_SUBTITLE, C_TITLE, C_XP,
     load_config, has_api_key,
 )
-from workout_cli.state import load_state, save_state, _default_state
-from workout_cli.art import get_evolution_stage
-from workout_cli.progression import LEVEL_THRESHOLDS
-from workout_cli.animation import prompt_enter
-from workout_cli.runner import run_workout
-from workout_cli.screens import (
+from gitfit.state import load_state, save_state, _default_state
+from gitfit.art import get_evolution_stage
+from gitfit.progression import LEVEL_THRESHOLDS
+from gitfit.animation import prompt_enter
+from gitfit.runner import run_workout
+from gitfit.screens import (
     show_history, show_stats, show_status_json,
     cmd_achievements, cmd_log, cmd_export, cmd_plan,
     cmd_profile, open_config_hint,
     cmd_tree, cmd_diff, cmd_star, cmd_version_history,
     cmd_exercises,
 )
-from workout_cli.ai import cmd_coach, cmd_generate, cmd_adapt, cmd_setup_key
-from workout_cli.library import cmd_browse, cmd_fork, cmd_fork_ai
-from workout_cli.openworkout import cmd_export_openworkout, cmd_import_openworkout
-from workout_cli.workout_manager import _workout_submenu
-from workout_cli.dev import dev_menu
+from gitfit.ai import cmd_coach, cmd_generate, cmd_adapt, cmd_setup_key, cmd_generate_exercise, cmd_ai_provider
+from gitfit.user import cmd_whoami, cmd_edit_profile, cmd_auth, cmd_link, cmd_push
+from gitfit.library import cmd_browse, cmd_fork, cmd_fork_ai
+from gitfit.openworkout import cmd_export_openworkout, cmd_import_openworkout
+from gitfit.workout_manager import _workout_submenu
+from gitfit.dev import dev_menu
 
 BANNER = r"""
- __        __         _               _      ____ _     ___
- \ \      / /__  _ __| | _____  _   _| |_   / ___| |   |_ _|
-  \ \ /\ / / _ \| '__| |/ / _ \| | | | __| | |   | |    | |
-   \ V  V / (_) | |  |   < (_) | |_| | |_  | |___| |___ | |
-    \_/\_/ \___/|_|  |_|\_\___/ \__,_|\__|  \____|_____|___|
+   ____ _ _   _____ _ _
+  / ___(_) |_|  ___(_) |_
+ | |  _| | __| |_  | | __|
+ | |_| | | |_|  _| | | |_
+  \____|_|\__|_|   |_|\__|
 """
 
 # The module-level docstring for --help
 _USAGE = """\
-CLI Workout Tool -- adaptive home training with fancy ASCII animations.
+GitFit -- adaptive home training with fancy ASCII animations.
 
 Usage:
     python app.py                       # interactive menu
@@ -55,9 +56,16 @@ Usage:
     python app.py export --json         # export full state as JSON
     python app.py coach                 # AI coaching advice (needs API key)
     python app.py generate "upper body" # AI workout generation (needs API key)
+    python app.py generate-exercise "burpees" # AI exercise creation (needs API key)
     python app.py adapt                 # AI adapts existing workouts (needs API key)
+    python app.py ai-provider [name]    # switch/show AI provider (anthropic|openai)
     python app.py setup-key             # interactive API key setup
     python app.py config                # show config path & hints
+    python app.py whoami                # show your user identity
+    python app.py profile --edit        # edit your profile
+    python app.py auth                  # manage auth token
+    python app.py link <token>          # link CLI to GitFitHub web account
+    python app.py push                  # push local data to GitFitHub
     python app.py status                # JSON dump of current state (agent-friendly)
     python app.py exercises             # list all exercises in catalog
     python app.py exercises <slug>      # show exercise details, variants, tips
@@ -90,12 +98,13 @@ def _ai_submenu(config, state):
             if HAS_ANTHROPIC
             else f"[bold bright_red]not installed[/bold bright_red]"
         )
+        provider = config.get("settings", {}).get("ai_provider", "anthropic")
         console.print(f"[{C_TITLE}]  AI Features[/{C_TITLE}]\n")
-        console.print(f"  API Key: {key_status}    SDK: {sdk_status}\n")
+        console.print(f"  Provider: [{C_DONE}]{provider}[/{C_DONE}]    API Key: {key_status}    SDK: {sdk_status}\n")
         console.print(f"  [{C_PROGRESS}]1)[/{C_PROGRESS}]  Coach -- get personalized advice")
         console.print(f"  [{C_PROGRESS}]2)[/{C_PROGRESS}]  Generate -- create a workout from a description")
         console.print(f"  [{C_PROGRESS}]3)[/{C_PROGRESS}]  Adapt -- AI tweaks your existing workouts")
-        console.print(f"  [{C_PROGRESS}]4)[/{C_PROGRESS}]  Setup API key")
+        console.print(f"  [{C_PROGRESS}]4)[/{C_PROGRESS}]  Setup API key / provider")
         console.print(f"  [{C_PROGRESS}]5)[/{C_PROGRESS}]  Back")
         choice = input("\n  Select: ").strip()
 
@@ -111,6 +120,7 @@ def _ai_submenu(config, state):
             config = load_config()  # reload since adapt modifies config
         elif choice == "4":
             cmd_setup_key()
+            config = load_config()
         elif choice == "5":
             break
 
@@ -121,7 +131,7 @@ def _config_submenu(config):
         console.clear()
         console.print(f"[{C_TITLE}]  Config & Setup[/{C_TITLE}]\n")
         console.print(f"  [{C_PROGRESS}]1)[/{C_PROGRESS}]  Config help (file paths & fields)")
-        console.print(f"  [{C_PROGRESS}]2)[/{C_PROGRESS}]  Setup API key")
+        console.print(f"  [{C_PROGRESS}]2)[/{C_PROGRESS}]  Setup API key / provider")
         console.print(f"  [{C_PROGRESS}]3)[/{C_PROGRESS}]  Back")
         choice = input("\n  Select: ").strip()
 
@@ -151,7 +161,10 @@ def main():
         elif cmd == "plan":
             cmd_plan(config, state)
         elif cmd == "profile":
-            cmd_profile(config, state)
+            if "--edit" in sys.argv:
+                cmd_edit_profile()
+            else:
+                cmd_profile(config, state)
         elif cmd == "log":
             if len(sys.argv) < 3:
                 console.print('Usage: python app.py log "your note here"')
@@ -161,6 +174,9 @@ def main():
             cmd_export(state, config, as_json="--json" in sys.argv)
         elif cmd == "coach":
             cmd_coach(config, state)
+        elif cmd == "generate-exercise":
+            prompt = " ".join(sys.argv[2:]) if len(sys.argv) > 2 else ""
+            cmd_generate_exercise(config, state, prompt)
         elif cmd == "generate":
             prompt = " ".join(sys.argv[2:]) if len(sys.argv) > 2 else ""
             cmd_generate(config, state, prompt)
@@ -168,6 +184,9 @@ def main():
             cmd_adapt(config, state)
         elif cmd in ("setup-key", "setup_key", "key"):
             cmd_setup_key()
+        elif cmd == "ai-provider":
+            arg = sys.argv[2] if len(sys.argv) > 2 else None
+            cmd_ai_provider(config, arg)
         elif cmd == "config":
             open_config_hint()
         elif cmd == "status":
@@ -190,8 +209,8 @@ def main():
                 console.print("Usage: python app.py fork <slug>")
             elif "--adapt" in sys.argv:
                 adapt_idx = sys.argv.index("--adapt")
-                adapt_prompt = " ".join(sys.argv[adapt_idx + 1:]) if adapt_idx + 1 < len(sys.argv) else ""
-                cmd_fork_ai(config, state, sys.argv[2])
+                adapt_prompt = " ".join(sys.argv[adapt_idx + 1:]) if adapt_idx + 1 < len(sys.argv) else None
+                cmd_fork_ai(config, state, sys.argv[2], adapt_prompt=adapt_prompt)
             else:
                 cmd_fork(config, sys.argv[2])
         elif cmd == "tree":
@@ -209,6 +228,15 @@ def main():
                 console.print("Usage: python app.py versions <n>")
             else:
                 cmd_version_history(config, sys.argv[2])
+        elif cmd == "whoami":
+            cmd_whoami()
+        elif cmd == "auth":
+            cmd_auth()
+        elif cmd == "link":
+            token = sys.argv[2] if len(sys.argv) > 2 else None
+            cmd_link(token)
+        elif cmd == "push":
+            cmd_push()
         elif cmd == "skip":
             workouts = config["workouts"]
             idx = int(state.get("current_workout_index", 0))

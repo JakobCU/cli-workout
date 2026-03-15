@@ -9,17 +9,17 @@ from rich.panel import Panel
 from rich.table import Table
 from rich.text import Text
 
-from workout_cli.config import (
+from gitfit.config import (
     console, CONFIG_FILE, STATE_FILE,
     C_ACHIEVEMENT, C_BORDER, C_DONE, C_EXERCISE, C_FIRE, C_LEVEL,
     C_LOCKED, C_PROGRESS, C_REST, C_STREAK, C_SUBTITLE, C_TITLE, C_XP,
 )
-from workout_cli.state import load_state, save_state
-from workout_cli.progression import (
+from gitfit.state import load_state, save_state
+from gitfit.progression import (
     ACHIEVEMENTS, LEVEL_THRESHOLDS, get_random_encouragement,
 )
-from workout_cli.animation import prompt_enter
-from workout_cli.meta import get_meta, has_fork_lineage
+from gitfit.animation import prompt_enter
+from gitfit.meta import get_meta, has_fork_lineage
 
 
 def show_history(state):
@@ -110,7 +110,7 @@ def show_stats(config, state):
 def cmd_profile(config, state):
     """Display user profile summary."""
     console.clear()
-    from workout_cli.art import get_evolution_stage
+    from gitfit.art import get_evolution_stage
 
     evo = get_evolution_stage(state)
     output = Text()
@@ -126,6 +126,14 @@ def cmd_profile(config, state):
     output.append(f"{state.get('current_streak', 0)} days\n", style=C_STREAK)
     output.append(f"  Sessions: ", style="white")
     output.append(f"{state.get('completed_sessions', 0)}\n", style=C_DONE)
+    # User identity
+    from gitfit.user import get_user
+    user = get_user()
+    if user.get("username"):
+        output.append(f"  User   : ", style="white")
+        output.append(f"@{user['username']}\n", style=C_PROGRESS)
+    output.append(f"  ID     : ", style="white")
+    output.append(f"{user['id'][:8]}...\n", style="dim")
     output.append(f"  Stage  : ", style="white")
     output.append(f"{evo['name']}\n", style=evo["color"])
 
@@ -323,8 +331,8 @@ def open_config_hint():
 # ── Fork Tree ────────────────────────────────────────────────────────
 def cmd_tree(config):
     """Show fork tree: library sources and their user forks."""
-    from workout_cli.library import _load_library
-    from workout_cli.exercises import _estimate_workout_duration
+    from gitfit.library import _load_library
+    from gitfit.exercises import _estimate_workout_duration
 
     library = _load_library()
     workouts = config["workouts"]
@@ -471,7 +479,7 @@ def cmd_diff(config, idx_a, idx_b):
 # ── Stars ────────────────────────────────────────────────────────────
 def cmd_star(state, slug=None):
     """Toggle star on a library workout, or list all stars."""
-    from workout_cli.library import _load_library
+    from gitfit.library import _load_library
 
     stars = state.get("stars", [])
 
@@ -490,8 +498,8 @@ def cmd_star(state, slug=None):
 
     # Normalize slug
     library = _load_library()
-    if slug not in library and f"fithub/{slug}" in library:
-        slug = f"fithub/{slug}"
+    if slug not in library and f"gitfit/{slug}" in library:
+        slug = f"gitfit/{slug}"
     if slug not in library:
         console.print(f"[red]Workout '{slug}' not found in library.[/red]")
         return
@@ -545,8 +553,8 @@ def cmd_version_history(config, idx_str):
 # ── Exercise Catalog ─────────────────────────────────────────────────
 def cmd_exercises(slug=None):
     """List all exercises or show details for one."""
-    from workout_cli.exercise_catalog import EXERCISE_CATALOG, get_exercise
-    from workout_cli.art import ASCII_FRAMES
+    from gitfit.exercise_catalog import EXERCISE_CATALOG, get_exercise
+    from gitfit.art import ASCII_FRAMES
 
     if slug:
         entry = get_exercise(slug)

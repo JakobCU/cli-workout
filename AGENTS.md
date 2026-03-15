@@ -34,8 +34,8 @@ python app.py export --json
 
 | File | Path | Purpose |
 |------|------|---------|
-| Config | `~/.workout_cli/config.json` | Workouts, settings, profile |
-| State | `~/.workout_cli/state.json` | History, XP, level, streak, achievements |
+| Config | `~/.gitfit/config.json` | Workouts, settings, profile |
+| State | `~/.gitfit/state.json` | History, XP, level, streak, achievements |
 | Library | `workouts/fithub--*.workout.json` | Curated workout plans |
 | Template | `workouts/_template.workout.json` | openWorkout format template |
 
@@ -61,8 +61,8 @@ Returns complete state as JSON to stdout:
   "achievements_count": "6/15",
   "history_count": 12,
   "last_session": {"date": "2026-03-14 08:30:00", "workout": "Workout C", "duration_min": 18.2},
-  "config_path": "~/.workout_cli/config.json",
-  "state_path": "~/.workout_cli/state.json"
+  "config_path": "~/.gitfit/config.json",
+  "state_path": "~/.gitfit/state.json"
 }
 ```
 
@@ -155,7 +155,7 @@ Exercises not in the built-in mapping default to `["general"]`.
 
 ## Modifying Workouts Directly
 
-Agents can read and write `~/.workout_cli/config.json` directly.
+Agents can read and write `~/.gitfit/config.json` directly.
 
 ### Adding a Workout
 
@@ -348,7 +348,7 @@ python app.py import-ow custom-workout.workout.json
 
 ```
 app.py                          # Entry point
-workout_cli/                    # Python package (21 modules)
+gitfit/                    # Python package (21 modules)
   config.py                     # Core config, paths, console
   state.py                      # State management
   exercises.py                  # Exercise registry + muscle groups

@@ -34,7 +34,7 @@ pip install anthropic
 python app.py
 ```
 
-Config and state are auto-created in `~/.workout_cli/` on first run.
+Config and state are auto-created in `~/.gitfit/` on first run.
 
 ## First Session
 
@@ -197,7 +197,7 @@ AI-adapt it: `python app.py fork "fithub/arnold-golden-era" --adapt "beginner, b
 
 ## Configuration
 
-Edit `~/.workout_cli/config.json`:
+Edit `~/.gitfit/config.json`:
 
 ```jsonc
 {
@@ -222,7 +222,7 @@ Edit `~/.workout_cli/config.json`:
 
 ```
 app.py                  # Entry point (thin wrapper)
-workout_cli/            # Python package
+gitfit/            # Python package
   config.py             # Paths, console, theme, config I/O
   state.py              # State management
   exercises.py          # Exercise registry, muscle groups

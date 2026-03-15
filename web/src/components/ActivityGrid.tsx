@@ -69,11 +69,22 @@ interface DayData {
   dayOfWeek: number;
 }
 
-export function ActivityGrid() {
+interface ActivityGridProps {
+  data?: Record<string, number>;
+}
+
+export function ActivityGrid({ data: externalData }: ActivityGridProps) {
   const [tooltip, setTooltip] = useState<{ x: number; y: number; text: string } | null>(null);
 
   const { weeks, monthLabels } = useMemo(() => {
-    const activityData = generateActivityData();
+    // Use external data if provided, otherwise generate demo data
+    let activityData: Map<string, number>;
+    if (externalData) {
+      activityData = new Map(Object.entries(externalData));
+    } else {
+      activityData = generateActivityData();
+    }
+
     const now = new Date();
     const weeksArr: DayData[][] = [];
 
@@ -123,7 +134,7 @@ export function ActivityGrid() {
     });
 
     return { weeks: weeksArr, monthLabels: labels };
-  }, []);
+  }, [externalData]);
 
   const totalSessions = useMemo(() => {
     let total = 0;

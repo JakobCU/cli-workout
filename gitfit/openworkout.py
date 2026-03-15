@@ -3,9 +3,9 @@
 import json
 from pathlib import Path
 
-from workout_cli.config import console, C_DONE, C_EXERCISE, C_PROGRESS, save_config
-from workout_cli.exercises import AVAILABLE_EXERCISES
-from workout_cli.animation import prompt_enter
+from gitfit.config import console, C_DONE, C_EXERCISE, C_PROGRESS, save_config
+from gitfit.exercises import AVAILABLE_EXERCISES
+from gitfit.animation import prompt_enter
 
 OPENWORKOUT_DIFFICULTIES = ["easy", "medium", "hard", "extreme"]
 

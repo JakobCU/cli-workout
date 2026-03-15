@@ -6,14 +6,14 @@ from rich.live import Live
 from rich.panel import Panel
 from rich.text import Text
 
-from workout_cli.config import console, C_DONE
-from workout_cli.art import (
+from gitfit.config import console, C_DONE
+from gitfit.art import (
     ASCII_FRAMES, EVOLUTION_STAGES,
 )
-from workout_cli.renderer import (
+from gitfit.renderer import (
     timer_color, border_color, fmt_time, make_progress_bar_text,
 )
-from workout_cli.animation import (
+from gitfit.animation import (
     TICK_DURATION, FRAME_SWITCH_TICKS,
     animate_block, countdown, prompt_enter,
 )
@@ -90,7 +90,7 @@ def dev_browse_evolutions():
 
 def dev_preview_exercises():
     """Preview each exercise animation for 5 seconds."""
-    from workout_cli.animation import show_transition
+    from gitfit.animation import show_transition
     exercises = [k for k in ASCII_FRAMES.keys()
                  if k not in ("REST", "DONE", "COUNTDOWN")]
     for name in exercises:
@@ -119,7 +119,7 @@ def dev_preview_countdown():
 
 def dev_preview_transitions():
     """Preview transition screens for each evolution."""
-    from workout_cli.animation import show_transition
+    from gitfit.animation import show_transition
     exercises = ["Push-Ups", "Squats", "Plank", "Superman"]
     for si, stage in enumerate(EVOLUTION_STAGES):
         ex = exercises[si % len(exercises)]

@@ -9,15 +9,15 @@ from rich.panel import Panel
 from rich.table import Table
 from rich.text import Text
 
-from workout_cli.config import (
+from gitfit.config import (
     console, HAS_ANTHROPIC,
     C_BORDER, C_DONE, C_EXERCISE, C_PROGRESS, C_SUBTITLE, C_TITLE,
     has_api_key, save_config,
 )
-from workout_cli.exercises import _estimate_workout_duration, AVAILABLE_EXERCISES
-from workout_cli.renderer import display_workout
-from workout_cli.animation import prompt_enter
-from workout_cli.meta import create_fork_meta
+from gitfit.exercises import _estimate_workout_duration, AVAILABLE_EXERCISES
+from gitfit.renderer import display_workout
+from gitfit.animation import prompt_enter
+from gitfit.meta import create_fork_meta
 
 # ── Inline presets (used by workout manager add-from-presets) ────────
 WORKOUT_PRESETS = {
@@ -90,15 +90,15 @@ WORKOUT_PRESETS = {
 
 # ── Disk-based workout library ──────────────────────────────────────
 def _load_library():
-    """Load workout library from workouts/*.workout.json files."""
+    """Load workout library from workouts/*.gitfit files."""
     workouts_dir = Path(__file__).resolve().parent.parent / "workouts"
     library = {}
     if not workouts_dir.is_dir():
         return library
-    for f in sorted(workouts_dir.glob("fithub--*.workout.json")):
+    for f in sorted(workouts_dir.glob("gitfit--*.gitfit")):
         try:
             data = json.loads(f.read_text(encoding="utf-8"))
-            slug = f.stem.replace(".workout", "").replace("fithub--", "fithub/")
+            slug = f.stem.replace(".workout", "").replace("gitfit--", "gitfit/")
             library[slug] = data
         except (json.JSONDecodeError, OSError):
             pass
@@ -110,14 +110,14 @@ WORKOUT_LIBRARY = _load_library()
 
 def cmd_browse(config, list_only=False, state=None):
     """Browse the workout library."""
-    from workout_cli.state import load_state
+    from gitfit.state import load_state
     if state is None:
         state = load_state()
     stars = set(state.get("stars", []))
 
     library = _load_library()  # reload fresh
     if not library:
-        console.print("[dim]No workouts in library. Add .workout.json files to workouts/[/dim]")
+        console.print("[dim]No workouts in library. Add .gitfit files to workouts/[/dim]")
         return
 
     if list_only:
@@ -191,8 +191,8 @@ def cmd_fork(config, slug):
     library = _load_library()
     if slug not in library:
         # Try adding fithub/ prefix
-        if f"fithub/{slug}" in library:
-            slug = f"fithub/{slug}"
+        if f"gitfit/{slug}" in library:
+            slug = f"gitfit/{slug}"
         else:
             console.print(f"[red]Workout '{slug}' not found in library.[/red]")
             console.print("  Available:")
@@ -211,13 +211,13 @@ def cmd_fork(config, slug):
     console.print(f"[{C_DONE}]Forked '{workout['name']}' into your workouts.[/{C_DONE}]")
 
 
-def cmd_fork_ai(config, state, slug):
+def cmd_fork_ai(config, state, slug, adapt_prompt=None):
     """Fork a library workout and let AI customize it."""
-    from workout_cli.ai import _require_ai, _build_user_context
+    from gitfit.ai import _require_ai, _build_user_context
 
     library = _load_library()
-    if slug not in library and f"fithub/{slug}" in library:
-        slug = f"fithub/{slug}"
+    if slug not in library and f"gitfit/{slug}" in library:
+        slug = f"gitfit/{slug}"
     if slug not in library:
         console.print(f"[red]Workout '{slug}' not found in library.[/red]")
         return
@@ -229,7 +229,12 @@ def cmd_fork_ai(config, state, slug):
     workout = library[slug]
     context = _build_user_context(config, state)
 
-    console.print(f"\n  Customizing [{C_EXERCISE}]{workout['name']}[/{C_EXERCISE}] for your level...\n")
+    adapt_label = f' with "{adapt_prompt}"' if adapt_prompt else " for your level"
+    console.print(f"\n  Customizing [{C_EXERCISE}]{workout['name']}[/{C_EXERCISE}]{adapt_label}...\n")
+
+    adapt_instruction = ""
+    if adapt_prompt:
+        adapt_instruction = f"\nUser's adaptation request: {adapt_prompt}\n"
 
     try:
         response = client.messages.create(
@@ -238,6 +243,7 @@ def cmd_fork_ai(config, state, slug):
             system=(
                 "Customize this workout for the user's level. Output ONLY valid JSON.\n"
                 "Keep the same structure but adjust values (duration/reps) based on their level.\n"
+                + adapt_instruction +
                 "Available animated exercises: " + ", ".join(AVAILABLE_EXERCISES) + "\n"
             ),
             messages=[{
@@ -271,7 +277,8 @@ def cmd_fork_ai(config, state, slug):
     confirm = input("\n  Add this customized workout? (y/N): ").strip().lower()
     if confirm == "y":
         customized["_meta"] = create_fork_meta(
-            slug, workout.get("name", slug), adapted_with="AI-customized")
+            slug, workout.get("name", slug),
+            adapted_with=adapt_prompt or "AI-customized")
         config["workouts"].append(customized)
         save_config(config)
         console.print(f"[{C_DONE}]Added: {customized.get('name', 'Custom')}[/{C_DONE}]")

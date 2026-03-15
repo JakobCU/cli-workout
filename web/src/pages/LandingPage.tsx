@@ -15,7 +15,7 @@ const BLOBBY_ART = `        \\\\  /
     _|_    _|_`;
 
 const CLI_LINES = [
-  { type: 'input' as const, text: '$ python app.py fork "fithub/arnold-golden-era" --adapt "beginner, bodyweight"' },
+  { type: 'input' as const, text: '$ python app.py fork "gitfit/arnold-golden-era" --adapt "beginner, bodyweight"' },
   { type: 'blank' as const, text: '' },
   { type: 'info' as const, text: '  AI Fork: adapting \'Arnold Golden Era\'...' },
   { type: 'blank' as const, text: '' },
@@ -43,7 +43,7 @@ export function LandingPage() {
   const [copied, setCopied] = useState(false);
 
   function handleCopy() {
-    navigator.clipboard.writeText('pip install fithub-cli');
+    navigator.clipboard.writeText('pip install gitfit');
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   }
@@ -280,7 +280,7 @@ export function LandingPage() {
 
           <div className="inline-flex items-center gap-3 bg-zinc-900 border border-zinc-800 rounded-lg px-5 py-3 font-mono text-sm">
             <span className="text-zinc-500">$</span>
-            <span className="text-green-400">pip install fithub-cli</span>
+            <span className="text-green-400">pip install gitfit</span>
             <button
               onClick={handleCopy}
               className="ml-2 p-1.5 rounded hover:bg-zinc-800 text-zinc-500 hover:text-zinc-300 transition-colors"

@@ -7,7 +7,7 @@ from rich.console import Console
 
 # ── .env loading ─────────────────────────────────────────────────────
 def _load_dotenv():
-    """Load .env file from the project root (parent of workout_cli/)."""
+    """Load .env file from the project root (parent of gitfit/)."""
     env_path = Path(__file__).resolve().parent.parent / ".env"
     if env_path.exists():
         for line in env_path.read_text(encoding="utf-8").splitlines():
@@ -29,10 +29,16 @@ try:
 except ImportError:
     HAS_ANTHROPIC = False
 
+try:
+    import openai  # noqa: F401
+    HAS_OPENAI = True
+except ImportError:
+    HAS_OPENAI = False
+
 console = Console()
 
 # ── Paths ────────────────────────────────────────────────────────────
-APP_DIR = Path.home() / ".workout_cli"
+APP_DIR = Path.home() / ".gitfit"
 STATE_FILE = APP_DIR / "state.json"
 CONFIG_FILE = APP_DIR / "config.json"
 
@@ -71,6 +77,8 @@ DEFAULT_CONFIG = {
         "enable_clear_screen": True,
         "webhook_url": None,
         "anthropic_api_key": None,
+        "openai_api_key": None,
+        "ai_provider": "anthropic",
     },
     "workouts": [
         {
@@ -126,7 +134,7 @@ def _save_json(path: Path, data):
 
 
 def ensure_files():
-    from workout_cli.state import _default_state
+    from gitfit.state import _default_state
     APP_DIR.mkdir(parents=True, exist_ok=True)
     if not CONFIG_FILE.exists():
         _save_json(CONFIG_FILE, DEFAULT_CONFIG)
@@ -153,3 +161,14 @@ def get_api_key(config):
 def has_api_key(config):
     """Check if an API key is configured anywhere."""
     return bool(get_api_key(config))
+
+
+def get_openai_key(config):
+    """Get OpenAI API key from env or config."""
+    return (os.environ.get("OPENAI_API_KEY")
+            or config["settings"].get("openai_api_key"))
+
+
+def has_openai_key(config):
+    """Check if an OpenAI key is configured."""
+    return bool(get_openai_key(config))

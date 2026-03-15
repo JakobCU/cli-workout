@@ -1,6 +1,6 @@
 """State management: default state, load, and save."""
 
-from workout_cli.config import STATE_FILE, ensure_files, _load_json, _save_json
+from gitfit.config import STATE_FILE, ensure_files, _load_json, _save_json
 
 
 def _default_state():

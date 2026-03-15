@@ -6,23 +6,23 @@ from rich.panel import Panel
 from rich.table import Table
 from rich.text import Text
 
-from workout_cli.config import (
+from gitfit.config import (
     console, C_ACHIEVEMENT, C_BORDER, C_DONE, C_EXERCISE, C_FIRE, C_LEVEL,
     C_PROGRESS, C_REST, C_STREAK, C_SUBTITLE, C_TIMER, C_TITLE, C_XP,
 )
-from workout_cli.state import save_state
-from workout_cli.art import ASCII_FRAMES, get_evolution_stage
-from workout_cli.progression import (
+from gitfit.state import save_state
+from gitfit.art import ASCII_FRAMES, get_evolution_stage
+from gitfit.progression import (
     get_progressed_value, maybe_apply_progression, update_streak,
     calculate_session_xp, update_level, check_achievements,
     summarize_workout, get_random_encouragement,
 )
-from workout_cli.webhook import send_webhook
-from workout_cli.animation import (
+from gitfit.webhook import send_webhook
+from gitfit.animation import (
     show_transition, animate_block, countdown, prompt_enter,
 )
-from workout_cli.renderer import fmt_time
-from workout_cli.screens import show_history, show_stats
+from gitfit.renderer import fmt_time
+from gitfit.screens import show_history, show_stats
 
 
 def run_workout(config, state, auto_start=False):
@@ -164,7 +164,7 @@ def run_workout(config, state, auto_start=False):
         })
 
     # ── Done screen ──────────────────────────────────────────────
-    from workout_cli.config import STATE_FILE
+    from gitfit.config import STATE_FILE
     evo_stage = get_evolution_stage(state)  # re-fetch in case level changed
     console.clear()
     done_text = Text()

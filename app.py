@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""CLI Workout Tool -- adaptive home training with fancy ASCII animations."""
+"""GitFit -- adaptive home training with fancy ASCII animations."""
 
-from workout_cli.menus import main
-from workout_cli.config import console, C_REST
+from gitfit.menus import main
+from gitfit.config import console, C_REST
 
 if __name__ == "__main__":
     try:

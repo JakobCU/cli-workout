@@ -6,10 +6,10 @@ from rich.live import Live
 from rich.panel import Panel
 from rich.text import Text
 
-from workout_cli.config import console, C_EXERCISE, C_SUBTITLE
-from workout_cli.art import EVOLUTION_STAGES
-from workout_cli.progression import get_random_encouragement
-from workout_cli.renderer import build_exercise_frame, build_countdown_frame
+from gitfit.config import console, C_EXERCISE, C_SUBTITLE
+from gitfit.art import EVOLUTION_STAGES
+from gitfit.progression import get_random_encouragement
+from gitfit.renderer import build_exercise_frame, build_countdown_frame
 
 # ── Animation constants ──────────────────────────────────────────────
 TICK_DURATION = 0.25   # 4 fps

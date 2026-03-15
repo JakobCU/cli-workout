@@ -1,10 +1,10 @@
 """Available exercises, muscle groups, and duration estimation.
 
-Derives from the exercise catalog (exercises/*.exercise.json) when available,
+Derives from the exercise catalog (exercises/*.exercise.gitfit) when available,
 falls back to hardcoded defaults for backward compatibility.
 """
 
-from workout_cli.exercise_catalog import (
+from gitfit.exercise_catalog import (
     EXERCISE_CATALOG, catalog_names, catalog_muscle_groups,
 )
 

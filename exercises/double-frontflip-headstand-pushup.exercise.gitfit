@@ -1,0 +1,58 @@
+{
+  "name": "Double Frontflip with Headstand Pushup",
+  "slug": "double-frontflip-headstand-pushup",
+  "description": "A challenging acrobatic move that involves performing a double frontflip, landing into a headstand, and executing a pushup. This exercise targets core strength, balance, and shoulder endurance.",
+  "muscle_groups": [
+    "core",
+    "shoulders",
+    "upper back"
+  ],
+  "default_mode": "reps",
+  "default_value": 10,
+  "tips": [
+    "Engage your core throughout the movement for better control and stability.",
+    "Start with a strong, controlled jump to ensure you have enough height and rotation.",
+    "Maintain a straight line from your head to your hips during the headstand to distribute weight evenly."
+  ],
+  "variants": [
+    {
+      "name": "Single Frontflip with Headstand",
+      "slug": "single-frontflip-headstand",
+      "description": "Perform a single frontflip, landing into a headstand to focus on form and technique before attempting the double flip.",
+      "muscle_groups": [
+        "core",
+        "shoulders",
+        "upper back"
+      ],
+      "default_value": 8
+    },
+    {
+      "name": "Frontflip Landing Roll into Headstand",
+      "slug": "frontflip-landing-roll-headstand",
+      "description": "Perform a frontflip, roll on landing into a headstand, offering a smoother transition and focusing on core stability.",
+      "muscle_groups": [
+        "core",
+        "shoulders",
+        "upper back"
+      ],
+      "default_value": 12
+    },
+    {
+      "name": "Headstand Pushup Only",
+      "slug": "headstand-pushup-only",
+      "description": "Focus solely on the headstand pushup, building strength and balance without the acrobatics.",
+      "muscle_groups": [
+        "shoulders",
+        "upper back",
+        "triceps"
+      ],
+      "default_value": 15
+    }
+  ],
+  "animation_frames": [
+    "               \\  /\n            .-''''-.          *\n           / @    @ \\        /\n          |  (~~~~)  |      /\n           \\ `----' /    __/\n        ----`------'----'\n       /  /            \\  \\\n      +--+              +--+\n     _|  |______________|  |_\n    /////              \\\\\\",
+    "               \\  /\n            .-''''-.         .\n           //      \\\\       /\n          |@(~~) @(~~)|    _/\n           \\ `----' /  __/\n          /--------'/'\n       .' /          \\ `.\n      | /              \\ |\n      + |              | +\n     _|_|______________|_|_\n    ///                \\\\\\",
+    "               \\  /\n            .-''''-.        '\n           / >    < \\      /\n          |  (~~~~)  |   _/\n           \\ `----' /__-'\n        ----`------''\n       //                \\\\\n      +'    ~~~  ~~~    '+\n     _|__   ___.___.  __|__\n    /////              \\\\\\",
+    "               \\  /\n            .-''''-.          *  *\n           / ^    ^ \\        \\ /\n          |  (~~~~)  |       __/\n           \\ `----' /    .-'\n        ----`------'---'/\n       /  /            \\  \\\n      +--+              +--+\n     _|  |______________|  |_\n    /////              \\\\\\"
+  ]
+}

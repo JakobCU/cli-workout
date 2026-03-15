@@ -1,0 +1,47 @@
+{
+  "name": "One-Legged Backflip",
+  "slug": "one-legged-backflip",
+  "description": "A dynamic exercise that involves performing a backflip using only one leg, targeting core strength and balance.",
+  "muscle_groups": [
+    "core",
+    "lower back",
+    "calves"
+  ],
+  "default_mode": "reps",
+  "default_value": 8,
+  "tips": [
+    "Ensure you have a solid foundation and strength in the supporting leg.",
+    "Maintain a tight core throughout the motion to control your balance.",
+    "Practice on a soft surface to reduce the impact during landing."
+  ],
+  "variants": [
+    {
+      "name": "One-Legged Backflip with Tuck",
+      "slug": "one-legged-backflip-tuck",
+      "description": "Perform the backflip while tucking your non-supporting leg to your chest, increasing the challenge.",
+      "muscle_groups": [
+        "core",
+        "lower back",
+        "calves"
+      ],
+      "default_value": 6
+    },
+    {
+      "name": "Assisted One-Legged Backflip",
+      "slug": "assisted-one-legged-backflip",
+      "description": "Use a gymnastic band or partner assistance to perform backflips with better control.",
+      "muscle_groups": [
+        "core",
+        "lower back",
+        "calves"
+      ],
+      "default_value": 10
+    }
+  ],
+  "animation_frames": [
+    "               \\  /\n            .-''''-.         ~\n           / @    @ \\       ~\n          |  (~~~~)  |   __/\n           \\ `----' / \\/\n          __`------'__\n         /  \\          \\\n        +----\\        /--+\n       _|     `----'`    |_\n      /////            \\\\\\\\\n     '/////''''''''''''\\\\\\\\\\'",
+    "               \\  /\n            .-''''-.\n           / @    @ \\\n          |  (~~~~)  |\n           \\ `----' /     *\n      ------`-''-'`---\n    /  /    | 1 |    \\  \\\n   +---+    +--+      +---+\n  _|   |____|  |______|   |_\n /////                \\\\\\\\\n'/////'                '\\\\\\\\'",
+    "               \\  /\n            .-''''-.\n           / >    < \\    ~ \n          |  (~~~~)  |  ~  \n           \\ `----' /     \n    _______`-(  )-'_________\n     \\     | `--' |      /\n      `----\\______/----'\n          _|   _   |_\n         /////\\\\\\\\\\\n       '///////''\\\\\\\\\\'",
+    "               \\  /\n            .-''''-.\n           / ^    ^ \\\n          |  (~~~~)  |     *\n           \\ `----' /      \n          ---'------'---\n         /  \\          \\  \n        +----\\        /---+\n       _|    `-'`----'    |_\n      /////            \\\\\\\\\n     '/////''''''''''''\\\\\\\\\\'"
+  ]
+}

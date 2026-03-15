@@ -6,7 +6,13 @@
       "Bash(python:*)",
       "Bash(cp:*)",
       "Bash(which vercel:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(curl:*)",
+      "Bash(npm install:*)",
+      "Bash(railway version:*)",
+      "Bash(railway login:*)",
+      "Bash(railway whoami:*)",
+      "Bash(sleep:*)"
     ]
   }
 }
